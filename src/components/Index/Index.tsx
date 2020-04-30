@@ -1,22 +1,38 @@
 import React, { useState, useEffect } from 'react';
+import { saveItem, getVisibleItems } from '../../utils/localStorage';
 const axios = require('axios');
-import { saveItem, getItems } from '../../utils/localStorage';
 
 function Index() {
+  interface Item {
+    avgPrice: number,
+    id: string,
+    title: string,
+    translatedTitle: string
+  };
+
+  interface Items extends Array<Item>{}
+
   const [title, setTitle] = useState('');
-  const [displayItems, setDisplayItems] = useState([]);
-  const [isUpdated, setIsUpdated] = useState(false);
+  const [items, setItems] = useState<Items>([]);
+  const [isUpdated, setIsUpdated] = useState(true);
+  const [totalValue, setTotalValue] = useState(0);
+
+  useEffect(() => {
+    // calculate the sum
+    const sum = items.reduce((accumulator, currentItem) =>
+      accumulator + currentItem.avgPrice, 0
+    );
+    setTotalValue(sum);
+  }, [items]);
 
   useEffect(() => {
     if (isUpdated) {
-      const { items, itemIds } = (getItems());
-      itemIds.map(itemId => items[itemId]);
+      setItems(getVisibleItems());
+      setIsUpdated(false);
     }
-    setIsUpdated(false);
   }, [isUpdated]);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    // for guests
     event.preventDefault();
     const response = await axios.post(
       `${process.env.REACT_APP_BACKEND_URL}/api/guest/items/${title}`
@@ -27,12 +43,13 @@ function Index() {
       response.data.translatedKeyword,
       response.data.avgPrice
     );
+
     setIsUpdated(true);
   }
   return (
     <div>
       <div>
-        Your Assets value at {}
+        Your Assets value at ${totalValue}
       </div>
       <div>
         <form onSubmit={handleSubmit}>
@@ -40,18 +57,21 @@ function Index() {
           <input type='submit' value='Search' />
         </form>
       </div>
-      
+      <div>
+        {items.map((item, index) => {
+          return (
+            <div key={index}>
+              <p>${item.avgPrice}</p>
+              <p>{item.title}</p>
+            </div>
+          )
+        })}
+      </div>
       <button
-        onClick={() => {
-          localStorage.setItem('testData', 'Hello data');
-          console.log('data saved');
-        }}
-      >Save something into local storage</button>
-      <button
-        onClick={() => {
-          console.log('data loaded', localStorage.getItem('testData'));
-        }}
-      >Get something from local storage</button>
+        onClick={() => localStorage.clear()}
+      >
+        Clear storage
+      </button>
     </div>
   );
 }

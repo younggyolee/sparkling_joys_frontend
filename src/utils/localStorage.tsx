@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from 'uuid';
+
 export function saveItem(
     title: string,
     translatedTitle: string,
@@ -10,23 +12,22 @@ export function saveItem(
   };
   const items = JSON.parse(localStorage.getItem('items') || '{}');
   const itemIds = JSON.parse(localStorage.getItem('itemIds') || '[]');
-  const itemId = Number(localStorage.getItem('nextItemId')) || 0;
+  const itemId = uuidv4();
 
   items[itemId] = item;
   itemIds.push(itemId);
 
-  localStorage.setItem('items', JSON.stringify({
-    title,
-    translatedTitle,
-    avgPrice
-  }));
-  localStorage.setItem('itemIds', itemIds);
-  localStorage.setItem('nextItemId', JSON.stringify(itemId + 1));
+  localStorage.setItem('items', JSON.stringify(items));
+  localStorage.setItem('itemIds', JSON.stringify(itemIds));
 };
 
-export function getItems() {
-  return {
-    items: JSON.parse(localStorage.getItem('items') || '{}'),
-    itemIds: JSON.parse(localStorage.getItem('itemIds') || '[]')
-  };
+export function getVisibleItems() {
+  const items = JSON.parse(localStorage.getItem('items') || '{}');
+  const itemIds = JSON.parse(localStorage.getItem('itemIds') || '[]');
+  return itemIds.map((itemId: string) => {
+    return {
+      id: itemId,
+      ...items[itemId]
+    };
+  });
 };
