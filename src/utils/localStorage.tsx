@@ -3,13 +3,18 @@ import { v4 as uuidv4 } from 'uuid';
 export function saveItem(
     title: string,
     translatedTitle: string,
-    avgPrice: number
+    avgPrice: number,
+    imageURL: string,
+    currency: string
   ) {
   const item = {
     title,
     translatedTitle,
-    avgPrice
+    avgPrice,
+    imageURL,
+    currency
   };
+  console.log('item', item);
   const items = JSON.parse(localStorage.getItem('items') || '{}');
   const itemIds = JSON.parse(localStorage.getItem('itemIds') || '[]');
   const itemId = uuidv4();

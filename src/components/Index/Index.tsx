@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { saveItem, getVisibleItems } from '../../utils/localStorage';
+import styles from './Index.module.css';
 const axios = require('axios');
 
 function Index() {
@@ -7,7 +8,9 @@ function Index() {
     avgPrice: number,
     id: string,
     title: string,
-    translatedTitle: string
+    translatedTitle: string,
+    imageURL: string,
+    currency: string
   };
 
   interface Items extends Array<Item>{}
@@ -41,37 +44,46 @@ function Index() {
     saveItem(
       title,
       response.data.translatedKeyword,
-      response.data.avgPrice
+      response.data.avgPrice,
+      response.data.imageURL,
+      response.data.currency
     );
 
     setIsUpdated(true);
   }
+
   return (
-    <div>
-      <div>
+    <div className={styles.container}>
+      <div className={styles.totalValueContainer}>
         Your Assets value at ${totalValue}
       </div>
-      <div>
+      <div className={styles.searchContainer}>
         <form onSubmit={handleSubmit}>
           <input type='text' onChange={e => setTitle(e.target.value)}/>
-          <input type='submit' value='Search' />
+          <input type='submit' value='Add' />
         </form>
       </div>
       <div>
+        <button
+          onClick={() => localStorage.clear()}
+        >
+          Clear storage
+        </button>
+      </div>
+      <div className={styles.itemsContainer}>
         {items.map((item, index) => {
           return (
             <div key={index}>
-              <p>${item.avgPrice}</p>
+              <img
+                src={item.imageURL}
+                className={styles.itemImages}
+              />
+              <p>{item.currency} {item.avgPrice}</p>
               <p>{item.title}</p>
             </div>
           )
         })}
       </div>
-      <button
-        onClick={() => localStorage.clear()}
-      >
-        Clear storage
-      </button>
     </div>
   );
 }
