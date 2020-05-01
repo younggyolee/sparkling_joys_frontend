@@ -1,55 +1,32 @@
 import React, { useState, useEffect } from 'react';
-import { saveItem, getVisibleItems } from '../../utils/localStorage';
 import styles from './Index.module.css';
 const axios = require('axios');
+axios.defaults.withCredentials = true;
 
 function Index() {
   interface Item {
-    avgPrice: number,
     id: string,
     title: string,
-    translatedTitle: string,
-    imageURL: string,
-    currency: string
+    price: number,
+    priceCurrency: string,
+    imageURL: string
   };
 
   interface Items extends Array<Item>{}
 
   const [title, setTitle] = useState('');
   const [items, setItems] = useState<Items>([]);
-  const [isUpdated, setIsUpdated] = useState(true);
   const [totalValue, setTotalValue] = useState(0);
-
-  useEffect(() => {
-    // calculate the sum
-    const sum = items.reduce((accumulator, currentItem) =>
-      accumulator + currentItem.avgPrice, 0
-    );
-    setTotalValue(sum);
-  }, [items]);
-
-  useEffect(() => {
-    if (isUpdated) {
-      setItems(getVisibleItems());
-      setIsUpdated(false);
-    }
-  }, [isUpdated]);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const response = await axios.post(
+    await axios.post(
       `${process.env.REACT_APP_BACKEND_URL}/api/guest/items/${title}`
     );
-
-    saveItem(
-      title,
-      response.data.translatedKeyword,
-      response.data.avgPrice,
-      response.data.imageURL,
-      response.data.currency
+    const response = await axios.get(
+      `${process.env.REACT_APP_BACKEND_URL}/api/guest/items`
     );
-
-    setIsUpdated(true);
+    setItems(response.data);
   }
 
   return (
@@ -69,6 +46,16 @@ function Index() {
         >
           Clear storage
         </button>
+        <button
+          onClick={async() => {
+            const response = await axios.get(
+              `${process.env.REACT_APP_BACKEND_URL}/api/guest/items`
+            );
+            // console.log(response);
+          }}
+        >
+          Get Items
+        </button>
       </div>
       <div className={styles.itemsContainer}>
         {items.map((item, index) => {
@@ -78,7 +65,7 @@ function Index() {
                 src={item.imageURL}
                 className={styles.itemImages}
               />
-              <p>{item.currency} {item.avgPrice}</p>
+              <p>{item.priceCurrency} {item.price}</p>
               <p>{item.title}</p>
             </div>
           )
