@@ -1,0 +1,10 @@
+.rootContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.itemCardContainer {
+  width: calc((100% - 160px) / 4);
+  margin: 20px;
+}

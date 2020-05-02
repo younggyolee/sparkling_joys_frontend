@@ -1,4 +1,5 @@
 export const VIEW_TYPES = {
+  RECEPTION: 'reception',
   MAIN: 'main',
   QUEUE: 'queue',
   CHAT: 'chat'

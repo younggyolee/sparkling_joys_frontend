@@ -1,27 +1,26 @@
-.container {
+.rootContainer {
+  min-width: 800px;
+  text-align: center;
+  font-family: 'Helvetica Neue', sans-serif;
+}
+
+.headerContainer {
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
 }
 
-.totalValueContainer {
-  text-align: center;
-  font-size: 50px;
-}
-
-.searchContainer {
-  text-align: center;
+.searchAreaContainer {
+  width: 100%;
   padding: 30px;
 }
 
-.itemsContainer {
-  background-color: antiquewhite;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+.searchComponentContainer {
+  
+  text-align: center;
+  /* background-color: aquamarine; */
 }
 
-.itemImages {
-  width: 200px;
-}
+/* .totalValueContainer {
+  text-align: center;
+  font-size: 50px;
+} */
+
