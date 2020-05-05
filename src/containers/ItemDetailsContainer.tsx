@@ -46,17 +46,23 @@ const ItemDetailsContainer: React.FC<any> = (props) => {
 
   useEffect(() => {
     (async() => {
-      const data = await getItemDetails(props.match.params.itemId);
-      setItem(data.item);
-      setListings(data.listings);
+      await updateItemDetails(props.match.params.itemId);
+      // const data = await getItemDetails(props.match.params.itemId);
+      // setItem(data.item);
+      // setListings(data.listings);
     })();
   }, []);
 
-  async function getItemDetails(itemId: string) {
-    const { data } = await axios.get(
-      `${process.env.REACT_APP_BACKEND_URL}/api/guest/items/${itemId}/details`
-    );
-    return data;
+  async function updateItemDetails(itemId: string) {
+    async function getItemDetails(itemId: string) {
+      const { data } = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/api/guest/items/${itemId}/details`
+      );
+      return data;
+    }
+    const data = await getItemDetails(itemId);
+    setItem(data.item);
+    setListings(data.listings);
   }
 
   return (
@@ -72,6 +78,7 @@ const ItemDetailsContainer: React.FC<any> = (props) => {
         description={item.description}
         creationTime={item.creationTime}
         listings={listings}
+        onItemUpdate={updateItemDetails}
       />
     </div>
   );

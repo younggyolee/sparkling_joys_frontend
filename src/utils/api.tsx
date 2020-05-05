@@ -24,3 +24,32 @@ export async function deleteItem(userId: string, itemId: string) {
   ));
   return result;
 };
+
+export async function updateItem(
+  userId: string,
+  itemId: string,
+  title: string,
+  price: number,
+  imageURL: string,
+  description: string
+) {
+  let result;
+  userId ?
+  (result = await axios.put(
+    `${process.env.REACT_APP_BACKEND_URL}/api/users/${userId}/items/${itemId}`, {
+      title,
+      price,
+      imageURL,
+      description
+    }
+  )) :
+  (result = await axios.put(
+    `${process.env.REACT_APP_BACKEND_URL}/api/guest/items/${itemId}`, {
+      title,
+      price,
+      imageURL,
+      description
+    }
+  ));
+  return result;
+};

@@ -5,10 +5,12 @@ import {
 } from 'react-router-dom';
 import moment from 'moment';
 import axios from 'axios';
-import { deleteItem } from '../../utils/api';
+import { deleteItem, updateItem } from '../../utils/api';
+import styles from './ItemDetails.module.css'
+import Modal from '../Modal/Modal';
 axios.defaults.withCredentials = true;
 
-interface ItemDetailProps {
+interface ItemDetailsProps {
   userId: string,
   itemId: string,
   title: string,
@@ -19,9 +21,10 @@ interface ItemDetailProps {
   description: string,
   creationTime: string,
   listings: Listing[]
+  onItemUpdate: (itemId: string) => void
 };
 
-const ItemDetail: React.FC<ItemDetailProps> = ({
+const ItemDetails: React.FC<ItemDetailsProps> = ({
   userId,
   itemId,
   title,
@@ -32,15 +35,23 @@ const ItemDetail: React.FC<ItemDetailProps> = ({
   description,
   creationTime,
   listings,
+  onItemUpdate
  }) => {
-   const [isRedirecting, setIsRedirecting] = useState(false);
-   useEffect(() => {
-    console.log('title', title);
-    console.log('listings', listings);
-   }, [title, listings])
+  const [isRedirecting, setIsRedirecting] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [newTitle, setNewTitle] = useState(title);
+  const [newPrice, setNewPrice] = useState(price);
+  const [newImageURL, setNewImageURL] = useState(imageURL);
+  const [newDescription , setNewDescription] = useState(description);
+
+  useEffect(() => {
+    setNewTitle(title);
+    setNewPrice(price);
+    setNewImageURL(imageURL);
+    setNewDescription(description);
+  }, [title, price, imageURL, description]);
 
   return (
-    
     <div>
       {isRedirecting && <Redirect to='/main' />}
       <div>
@@ -48,8 +59,82 @@ const ItemDetail: React.FC<ItemDetailProps> = ({
       </div>
       <h1>{title}</h1>
       <div>
-        <span>{priceCurrency}</span>
-        <span>{price}</span>
+        {showModal &&
+          <Modal 
+            show={showModal}
+            onClose={() => setShowModal(false)}
+          >
+            <div>
+              <table>
+                <tr>
+                  <td>Title</td>
+                  <td><input
+                    value={newTitle}
+                    onChange={e => setNewTitle(e.target.value)} />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Price</td>
+                  <td>
+                    <input
+                      value={newPrice}
+                      onChange={e => setNewPrice(Number(e.target.value))}
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Image URL</td>
+                  <td>
+                    <input
+                      value={newImageURL}
+                      onChange={e => setNewImageURL(e.target.value)}
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Description
+                  </td>
+                  <td>
+                    <input
+                      value={newDescription}
+                      onChange={e => setNewDescription(e.target.value)}
+                    />
+                  </td>
+                </tr>
+              </table>
+              <button
+                onClick={() => {
+                  // submit to API
+                  updateItem(
+                    userId,
+                    itemId,
+                    newTitle,
+                    newPrice,
+                    newImageURL,
+                    newDescription
+                  );
+                  onItemUpdate(itemId);
+                  // close modal
+                  setShowModal(false);
+                }}
+              >
+                Save
+              </button>
+              <button
+                onClick={() => {
+                  setShowModal(false);
+                }}
+              >
+                Close
+              </button>
+            </div>
+          </Modal>
+        }
+      </div>
+      <div>
+          <span>{priceCurrency}{price}</span>
+          <button  onClick={() => setShowModal(true)}>Edit</button>
       </div>
       <div>
         <button
@@ -93,4 +178,4 @@ const ItemDetail: React.FC<ItemDetailProps> = ({
   );
 }
 
-export default ItemDetail;
+export default ItemDetails;
