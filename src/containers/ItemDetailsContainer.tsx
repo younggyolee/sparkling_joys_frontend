@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { withRouter, RouteComponentProps } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { RootState } from '../store';
 import ItemDetails from '../components/ItemDetails/ItemDetails';
+import { getItemDetails, getAvgPriceDaily } from '../utils/api';
 import axios from 'axios';
 axios.defaults.withCredentials = true;
 
@@ -29,8 +29,12 @@ export interface Listing {
   imageURL: string
 };
 
+export interface avgPrice {
+  endDate: string,
+  avgPrice: string
+}
+
 const ItemDetailsContainer: React.FC<any> = (props) => {
-  console.log(props);
   const [item, setItem] = useState<Item>({
     id: '',
     title: '',
@@ -43,26 +47,25 @@ const ItemDetailsContainer: React.FC<any> = (props) => {
     creationTime: '',
   });
   const [listings, setListings] = useState<Listing[]>([]);
+  const [avgPrices, setAvgPrices] = useState<avgPrice[]>([]);
 
   useEffect(() => {
     (async() => {
       await updateItemDetails(props.match.params.itemId);
-      // const data = await getItemDetails(props.match.params.itemId);
-      // setItem(data.item);
-      // setListings(data.listings);
+      await updateAvgPriceDaily(props.match.params.itemId);
     })();
   }, []);
 
   async function updateItemDetails(itemId: string) {
-    async function getItemDetails(itemId: string) {
-      const { data } = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/api/guest/items/${itemId}/details`
-      );
-      return data;
-    }
     const data = await getItemDetails(itemId);
     setItem(data.item);
     setListings(data.listings);
+  }
+
+  async function updateAvgPriceDaily(itemId: string) {
+    const data = await getAvgPriceDaily(itemId);
+    console.log('avgPriceDaily', data.avgPriceDaily);
+    setAvgPrices(data.avgPriceDaily);
   }
 
   return (
@@ -79,21 +82,11 @@ const ItemDetailsContainer: React.FC<any> = (props) => {
         creationTime={item.creationTime}
         listings={listings}
         onItemUpdate={updateItemDetails}
+        avgPrices={avgPrices}
       />
     </div>
   );
 };
-
-// const mapDispatchToProps = (dispatch: Dispatch) => {
-//   return {
-//     // setUserId(userId: string) {
-//     //   dispatch(setUserIdAction(userId));
-//     // },
-//     // setItems(items: Items) {
-//     //   dispatch(setItemsAction(items));
-//     // }
-//   };
-// };
 
 const mapStateToProps = (state: RootState) => ({
   userId: state.userId
@@ -102,5 +95,3 @@ const mapStateToProps = (state: RootState) => ({
 export default withRouter(
   connect(mapStateToProps, null)(ItemDetailsContainer)
 );
-
-// export default ItemDetailsContainer;

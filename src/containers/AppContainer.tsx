@@ -24,6 +24,8 @@ const AppContainer: React.FC = () => {
   );
 };
 
-export default withRouter(
-  connect(null, null)(AppContainer)
-);
+export default AppContainer;
+
+// export default withRouter(
+//   connect(null, null)(AppContainer)
+// );

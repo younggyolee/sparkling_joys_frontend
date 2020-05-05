@@ -53,3 +53,17 @@ export async function updateItem(
   ));
   return result;
 };
+
+export async function getItemDetails(itemId: string) {
+  const { data } = await axios.get(
+    `${process.env.REACT_APP_BACKEND_URL}/api/guest/items/${itemId}/details`
+  );
+  return data;
+};
+
+export async function getAvgPriceDaily(itemId: string) {
+  const { data } = await axios.get(
+    `${process.env.REACT_APP_BACKEND_URL}/api/items/${itemId}/avg-price-daily`
+  );
+  return data;
+}
