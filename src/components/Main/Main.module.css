@@ -4,23 +4,11 @@
   font-family: 'Helvetica Neue', sans-serif;
 }
 
-.headerContainer {
-  width: 100%;
-}
-
 .searchAreaContainer {
   width: 100%;
   padding: 30px;
 }
 
-.searchComponentContainer {
-  
+.searchComponentContainer {  
   text-align: center;
-  /* background-color: aquamarine; */
 }
-
-/* .totalValueContainer {
-  text-align: center;
-  font-size: 50px;
-} */
-

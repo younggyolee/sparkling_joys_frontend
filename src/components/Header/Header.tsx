@@ -1,17 +1,26 @@
-import React, { useState, useEffect, ReactHTML } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import styles from './Header.module.css';
 import Search from '../Search/Search';
 
-interface SearchProps {
-  onSearchEnter: (keyword: string) => void
+interface HeaderProps {
+  onSearch: (keyword: string) => void,
+  userId: string
 };
 
-function Header({onSearchEnter}: SearchProps) {
+function Header({ onSearch, userId }: HeaderProps) {
   return (
     <div className={styles.rootContainer}>
-      <span>Sparkling Joys[ICON]</span>
-      <Search onSearchEnter={onSearchEnter} />
-      <span>LOG IN</span>
+      <span>
+        <Link to='/main'>Sparkling Joys[ICON]</Link>
+      </span>
+      <Search onSearch={onSearch} />
+      <Link to='/signup'>
+        <span>SIGN UP</span>
+      </Link>
+      <Link to='/login'>
+        <span>LOG IN</span>
+      </Link>
     </div>
   );
 }
