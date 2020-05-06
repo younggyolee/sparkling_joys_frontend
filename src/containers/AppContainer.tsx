@@ -1,31 +1,70 @@
-import React from 'react';
-import {
-  Route,
-  Redirect
-} from 'react-router-dom';
-import { withRouter } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
+import {
+  withRouter,
+  Route,
+  Redirect,
+  Switch
+} from 'react-router-dom';
+import { getUser } from '../utils/api';
+import { RootState } from '../store';
+import { setUserIdAction } from '../store/userId/actions';
 import Signup from '../components/Signup/Signup';
 import LoginContainer from './LoginContainer';
-import HeaderContainer from './HeaderContainer';
 import MainContainer from './MainContainer';
 import ItemDetailsContainer from './ItemDetailsContainer';
+import HeaderContainer from './HeaderContainer';
 
-const AppContainer: React.FC = () => {
+interface AppContainerProps {
+  userId: string,
+  setUserId: (userId: string) => void
+};
+
+const AppContainer: React.FC<AppContainerProps> = ({ userId, setUserId }) => {
+  useEffect(() => {
+    (async() => {
+      const data = await getUser();
+      if (data.userId) setUserId(data.userId);
+      console.log('userData', data);
+    })();
+  }, [userId]);
+
   return (
-    <div>
-      <HeaderContainer />
-      <Redirect from='/' to='/main' />
-      <Route exact path='/signup' component={Signup} />
-      <Route exact path='/login' component={LoginContainer} />
-      <Route exact path='/main' component={MainContainer} />
-      <Route exact path='/items/:itemId' component={ItemDetailsContainer} />
-    </div>
+    <>
+      <Switch>
+        <Redirect exact from='/' to='/main' />
+        <Route exact path='/signup' component={Signup} />
+        <Route exact path='/login' component={LoginContainer} />
+        <Route exact path='/main' render={() => (
+          <>
+            <HeaderContainer />
+            <MainContainer />
+          </>
+        )} />
+        <Route exact path='/items/:itemId' render={() => (
+          <>
+            <HeaderContainer />
+            <ItemDetailsContainer />
+          </>
+        )} />
+      </Switch>
+    </>
   );
 };
 
-export default AppContainer;
+const mapDispatchToProps = (dispatch: Dispatch) => {
+  return {
+    setUserId(userId: string) {
+      dispatch(setUserIdAction(userId));
+    },
+  };
+};
 
-// export default withRouter(
-//   connect(null, null)(AppContainer)
-// );
+const mapStateToProps = (state: RootState) => ({
+  userId: state.userId
+});
+
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(AppContainer)
+);

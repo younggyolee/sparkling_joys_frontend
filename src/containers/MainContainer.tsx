@@ -24,7 +24,7 @@ const MainContainer: React.FC<MainContainerProps> = ({ userId, items, setItems }
       const items = await getItems(userId);
       setItems(items);
     })();
-  }, []);
+  }, [userId]);
 
   return (
     <div>

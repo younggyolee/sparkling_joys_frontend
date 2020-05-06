@@ -11,6 +11,7 @@ function Search({ onSearch }: SearchProps) {
   function handleKeyPress(event: React.KeyboardEvent<HTMLInputElement>) {
     if (event.charCode === 13) {
       onSearch(text);
+      setText('');
     }
   }
 

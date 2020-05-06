@@ -56,7 +56,7 @@ export async function updateItem(
 
 export async function getItemDetails(itemId: string) {
   const { data } = await axios.get(
-    `${process.env.REACT_APP_BACKEND_URL}/api/guest/items/${itemId}/details`
+    `${process.env.REACT_APP_BACKEND_URL}/api/items/${itemId}/details`
   );
   return data;
 };
@@ -64,6 +64,20 @@ export async function getItemDetails(itemId: string) {
 export async function getAvgPriceDaily(itemId: string) {
   const { data } = await axios.get(
     `${process.env.REACT_APP_BACKEND_URL}/api/items/${itemId}/avg-price-daily`
+  );
+  return data;
+}
+
+export async function logout() {
+  const { data } = await axios.get(
+    `${process.env.REACT_APP_BACKEND_URL}/logout`
+  );
+  return data;
+};
+
+export async function getUser() {
+  const { data } = await axios.get(
+    `${process.env.REACT_APP_BACKEND_URL}/api/user`
   );
   return data;
 }

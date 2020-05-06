@@ -54,7 +54,7 @@ const ItemDetailsContainer: React.FC<any> = (props) => {
       await updateItemDetails(props.match.params.itemId);
       await updateAvgPriceDaily(props.match.params.itemId);
     })();
-  }, []);
+  }, [props.match.params.itemId]);
 
   async function updateItemDetails(itemId: string) {
     const data = await getItemDetails(itemId);
@@ -64,7 +64,6 @@ const ItemDetailsContainer: React.FC<any> = (props) => {
 
   async function updateAvgPriceDaily(itemId: string) {
     const data = await getAvgPriceDaily(itemId);
-    console.log('avgPriceDaily', data.avgPriceDaily);
     setAvgPrices(data.avgPriceDaily);
   }
 

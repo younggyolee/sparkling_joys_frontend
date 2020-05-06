@@ -3,6 +3,7 @@ import styles from './Main.module.css';
 import ItemList from '../ItemList/ItemList';
 import { Items } from '../../store/items/types';
 import axios from 'axios';
+import HeaderContainer from '../../containers/HeaderContainer';
 axios.defaults.withCredentials = true;
 
 interface MainProps {

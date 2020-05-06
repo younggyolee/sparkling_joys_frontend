@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Listing, avgPrice } from '../../containers/ItemDetailsContainer';
 import {
-  Redirect
+  useHistory
 } from 'react-router-dom';
+import { Listing, avgPrice } from '../../containers/ItemDetailsContainer';
 import moment from 'moment';
 import { deleteItem, updateItem, getAvgPriceDaily } from '../../utils/api';
 import styles from './ItemDetails.module.css'
@@ -38,12 +38,13 @@ const ItemDetails: React.FC<ItemDetailsProps> = ({
   onItemUpdate,
   avgPrices
  }) => {
-  const [isRedirecting, setIsRedirecting] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [newTitle, setNewTitle] = useState(title);
   const [newPrice, setNewPrice] = useState(price);
   const [newImageURL, setNewImageURL] = useState(imageURL);
   const [newDescription , setNewDescription] = useState(description);
+
+  const history = useHistory();
 
   useEffect(() => {
     setNewTitle(title);
@@ -52,7 +53,6 @@ const ItemDetails: React.FC<ItemDetailsProps> = ({
     setNewDescription(description);
   }, [title, price, imageURL, description]);
 
-  // For charting
   const data = avgPrices.map(avgPrice => ({
     date: new Date(avgPrice.endDate).valueOf(),
     price: Number(avgPrice.avgPrice)
@@ -73,9 +73,8 @@ const ItemDetails: React.FC<ItemDetailsProps> = ({
 
   return (
     <div>
-      {isRedirecting && <Redirect to='/main' />}
       <div>
-        <img src={imageURL} />
+        <img src={imageURL} id={styles.itemMainImage}/>
       </div>
       <h1>{title}</h1>
       <div>
@@ -142,9 +141,7 @@ const ItemDetails: React.FC<ItemDetailsProps> = ({
                 Save
               </button>
               <button
-                onClick={() => {
-                  setShowModal(false);
-                }}
+                onClick={() => setShowModal(false)}
               >
                 Close
               </button>
@@ -153,8 +150,8 @@ const ItemDetails: React.FC<ItemDetailsProps> = ({
         }
       </div>
       <div>
-          <span>{priceCurrency}{price}</span>
-          <button  onClick={() => setShowModal(true)}>Edit</button>
+        <span>{priceCurrency}{price}</span>
+        <button  onClick={() => setShowModal(true)}>Edit</button>
       </div>
       <div>
         <button
@@ -162,7 +159,7 @@ const ItemDetails: React.FC<ItemDetailsProps> = ({
             try {
               const result = await deleteItem(userId, itemId);
               if (result.status === 200) {
-                setIsRedirecting(true);
+                history.push('/main');
               } else {
                 throw new Error();
               }
@@ -180,45 +177,28 @@ const ItemDetails: React.FC<ItemDetailsProps> = ({
       <div>
         <table>
           <thead>
-            <th>date</th>
-            <th>price</th>
+            <tr>
+              <th>title</th>
+              <th>date</th>
+              <th>price</th>
+              <th>currency</th>
+              <th>image</th>
+            </tr>
           </thead>
           <tbody>
-            {avgPrices.map(avgPrice => (
-              <tr>
-                <td>{avgPrice.endDate}</td>
-                <td>{avgPrice.avgPrice}</td>
+            {listings.map((listing, index) => (
+              <tr key={index}>
+                <td><a href={listing.url}>{listing.title}</a></td>
+                <td>{moment(listing.endDate).format('YYYY-MM-DD')}</td>
+                <td>{listing.price}</td>
+                <td>{listing.priceCurrency}</td>
+                <td><img src={listing.imageURL} width="100px" /></td>
               </tr>
-            ))}
-            <tr></tr>
+              ))
+            }
           </tbody>
         </table>
-
       </div>
-      <table>
-        <thead>
-          <tr>
-            <th>title</th>
-            <th>date</th>
-            <th>price</th>
-            <th>currency</th>
-            <th>image</th>
-          </tr>
-        </thead>
-        <tbody>
-          {listings.map(listing => (
-            <tr>
-              <td><a href={listing.url}>{listing.title}</a></td>
-              <td>{moment(listing.endDate).format('YYYY-MM-DD')}</td>
-              <td>{listing.price}</td>
-              <td>{listing.priceCurrency}</td>
-              <td><img src={listing.imageURL} width="100px" /></td>
-            </tr>
-            ))
-          }
-        </tbody>
-      </table>
-      
     </div>
   );
 }

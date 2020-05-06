@@ -16,7 +16,7 @@ const ItemList: React.FC<ItemListProps> = ({ items }) => {
     <div className={styles.rootContainer}>
       {items.map((item, index) => {
         return (
-          <div className={styles.itemCardContainer}>
+          <div key={index} className={styles.itemCardContainer}>
             <ItemCard item={item} key={index} />
           </div>
         )
