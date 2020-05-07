@@ -10,15 +10,22 @@ import { RootState } from '../store';
 import { setUserIdAction } from '../store/userId/actions';
 import { setItemsAction } from '../store/items/actions';
 import { Items } from '../store/items/types';
+import { loadingItems } from '../store/loadingItems/types';
 import { getItems } from '../utils/api';
 
 interface MainContainerProps {
   userId: string,
   items: Items,
+  loadingItems: loadingItems
   setItems: (items: Items) => void
 };
 
-const MainContainer: React.FC<MainContainerProps> = ({ userId, items, setItems }) => {
+const MainContainer: React.FC<MainContainerProps> = ({
+  userId,
+  items,
+  loadingItems,
+  setItems
+}) => {
   useEffect(() => {
     (async() => {
       const items = await getItems(userId);
@@ -27,9 +34,7 @@ const MainContainer: React.FC<MainContainerProps> = ({ userId, items, setItems }
   }, [userId]);
 
   return (
-    <div>
-      <Main items={items} />
-    </div>
+    <Main items={items} loadingItems={loadingItems} />
   );
 };
 
@@ -46,7 +51,8 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
 
 const mapStateToProps = (state: RootState) => ({
   userId: state.userId,
-  items: state.items
+  items: state.items,
+  loadingItems: state.loadingItems
 });
 
 export default withRouter(

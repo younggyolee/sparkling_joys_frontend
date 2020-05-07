@@ -13,10 +13,12 @@ const ItemCard: React.FC<ItemCardProps> = ({ item }) => {
   return (
     <div className={styles.rootContainer}>
       <Link to={`/items/${item.id}`}>
-        <img
-          src={item.imageURL}
-          className={styles.itemImages}
-        />
+        <div className={styles.imageContainer}>
+          <img
+            src={item.imageURL}
+            className={styles.itemImages}
+          />
+        </div>
         <div className={styles.textContainer}>
           <div className={styles.titleTextContainer}>
             <span className={styles.titleText}>
@@ -25,7 +27,7 @@ const ItemCard: React.FC<ItemCardProps> = ({ item }) => {
           </div>
           <div className={styles.priceTextContainer}>
             <span className={styles.prriceText}>
-              {item.priceCurrency} {item.price}
+              {item.priceCurrency} {item.price || ''}
             </span>
           </div>
         </div>

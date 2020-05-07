@@ -1,14 +1,17 @@
 .rootContainer {
-  min-width: 800px;
-  text-align: center;
-  font-family: 'Helvetica Neue', sans-serif;
+  font-family: 'Gothic A1', sans-serif;
+  margin-left: 70px;
+  margin-right: 70px;
 }
 
-.searchAreaContainer {
-  width: 100%;
-  padding: 30px;
+.assetDisplayContainer {
+  display: flex;
+  flex-direction: row;
+  /* background-color: thistle; */
+  padding: 50px;
+  margin-top: 60px;
 }
 
-.searchComponentContainer {  
-  text-align: center;
+.assetDisplayText {
+  font-size: 30px;
 }

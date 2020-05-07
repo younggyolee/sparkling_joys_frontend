@@ -3,7 +3,20 @@
   flex-direction: row;
   height: 100%;
   /* background-color: tomato; */
-  padding-top: 20px;
-  padding-bottom: 20px;
-  justify-content: space-around;
+  justify-content: space-between  ;
+  padding: 30px;
+  font-size: 15px;
+}
+
+#addIcon {
+  width: 35px;
+}
+
+#rightButtonArea {
+  /* background-color: thistle; */
+}
+
+.loginButtons {
+  margin-right: 50px;
+  display: inline-block;
 }

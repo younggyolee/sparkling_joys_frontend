@@ -44,6 +44,11 @@ function Login({ onLoginSubmit }: StateProps) {
           Continue
         </button>
       </div>
+      <div>
+        <Link to='/signup'>
+          <button>Create your new account</button>
+        </Link>
+      </div>
     </div>
   );
 }

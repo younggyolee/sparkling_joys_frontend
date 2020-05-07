@@ -68,22 +68,20 @@ const ItemDetailsContainer: React.FC<any> = (props) => {
   }
 
   return (
-    <div>
-      <ItemDetails
-        userId={props.userId}
-        itemId={props.match.params.itemId}
-        title={item.title}
-        price={item.price}
-        priceCurrency={item.priceCurrency}
-        priceLastUpdateTime={item.priceLastUpdateTime}
-        imageURL={item.imageURL}
-        description={item.description}
-        creationTime={item.creationTime}
-        listings={listings}
-        onItemUpdate={updateItemDetails}
-        avgPrices={avgPrices}
-      />
-    </div>
+    <ItemDetails
+      userId={props.userId}
+      itemId={props.match.params.itemId}
+      title={item.title}
+      price={item.price}
+      priceCurrency={item.priceCurrency}
+      priceLastUpdateTime={item.priceLastUpdateTime}
+      imageURL={item.imageURL}
+      description={item.description}
+      creationTime={item.creationTime}
+      listings={listings}
+      onItemUpdate={updateItemDetails}
+      avgPrices={avgPrices}
+    />
   );
 };
 

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import styles from './Search.module.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 interface SearchProps {
   onSearch: (keyword: string) => void
@@ -7,7 +9,7 @@ interface SearchProps {
 
 function Search({ onSearch }: SearchProps) {
   const [text, setText] = useState('');
-  
+
   function handleKeyPress(event: React.KeyboardEvent<HTMLInputElement>) {
     if (event.charCode === 13) {
       onSearch(text);
@@ -16,8 +18,7 @@ function Search({ onSearch }: SearchProps) {
   }
 
   return (
-    <div className={styles.rootContainer}>
-      <span className={styles.searchLabel}>SEARCH</span>
+    <>
       <input
         className={styles.searchInput}
         type='text'
@@ -25,7 +26,8 @@ function Search({ onSearch }: SearchProps) {
         onChange={event => setText(event.target.value)}
         onKeyPress={handleKeyPress}
       />
-    </div>
+      <FontAwesomeIcon icon={ faPlus } />
+    </>
   );
 }
 

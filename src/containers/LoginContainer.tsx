@@ -37,9 +37,7 @@ const LoginContainer: React.FC<LoginContainerProps> = ({
   }
 
   return (
-    <div>
-      <Login onLoginSubmit={handleLoginSubmit} /> 
-    </div>
+    <Login onLoginSubmit={handleLoginSubmit} /> 
   );
 };
 
