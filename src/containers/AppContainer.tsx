@@ -10,11 +10,12 @@ import {
 import { getUser } from '../utils/api';
 import { RootState } from '../store';
 import { setUserIdAction } from '../store/userId/actions';
-import Signup from '../components/Signup/Signup';
 import LoginContainer from './LoginContainer';
 import MainContainer from './MainContainer';
 import ItemDetailsContainer from './ItemDetailsContainer';
 import HeaderContainer from './HeaderContainer';
+import SearchContainer from './SearchContainer';
+import Signup from '../components/Signup/Signup';
 
 interface AppContainerProps {
   userId: string,
@@ -46,6 +47,12 @@ const AppContainer: React.FC<AppContainerProps> = ({ userId, setUserId }) => {
           <>
             <HeaderContainer />
             <ItemDetailsContainer />
+          </>
+        )} />
+        <Route exact path='/search' render={() => (
+          <>
+            <HeaderContainer />
+            <SearchContainer />
           </>
         )} />
       </Switch>

@@ -18,31 +18,31 @@ axios.defaults.withCredentials = true;
 
 interface HeaderContainerProps {
   userId: string,
-  setItems: (items: Items) => void,
+  // setItems: (items: Items) => void,
   setUserId: (userId: string) => void,
-  addLoadingItem: (loadingItem: loadingItem) => void,
-  removeLoadingItem: () => void
+  // addLoadingItem: (loadingItem: loadingItem) => void,
+  // removeLoadingItem: () => void
 };
 
 const HeaderContainer: React.FC<HeaderContainerProps> = ({
   userId,
-  setItems,
+  // setItems,
   setUserId,
-  addLoadingItem,
-  removeLoadingItem
+  // addLoadingItem,
+  // removeLoadingItem
 }) => {
   const history = useHistory();
 
-  async function handleSearch(keyword: string) {
-    addLoadingItem({
-      title: keyword,
-      imageURL: `${process.env.REACT_APP_PUBLIC_URL}/images/loading.gif`
-    });
-    await addItem(userId, keyword);
-    const items = await getItems(userId);
-    removeLoadingItem();
-    setItems(items);
-  }
+  // async function handleSearch(keyword: string) {
+  //   addLoadingItem({
+  //     title: keyword,
+  //     imageURL: `${process.env.REACT_APP_PUBLIC_URL}/images/loading.gif`
+  //   });
+  //   await addItem(userId, keyword);
+  //   const items = await getItems(userId);
+  //   removeLoadingItem();
+  //   setItems(items);
+  // }
 
   async function handleLogout() {
     await logout();
@@ -51,7 +51,7 @@ const HeaderContainer: React.FC<HeaderContainerProps> = ({
   }
 
   return (
-    <Header onSearch={handleSearch} userId={userId} onLogout={handleLogout} />
+    <Header userId={userId} onLogout={handleLogout} />
   );
 };
 
@@ -60,15 +60,15 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
     setUserId(userId: string) {
       dispatch(setUserIdAction(userId));
     },
-    setItems(items: Items) {
-      dispatch(setItemsAction(items));
-    },
-    addLoadingItem(loadingItem: loadingItem) {
-      dispatch(addLoadingItemAction(loadingItem));
-    },
-    removeLoadingItem(){
-      dispatch(removeLoadingItemAction());
-    }
+    // setItems(items: Items) {
+    //   dispatch(setItemsAction(items));
+    // },
+    // addLoadingItem(loadingItem: loadingItem) {
+    //   dispatch(addLoadingItemAction(loadingItem));
+    // },
+    // removeLoadingItem(){
+    //   dispatch(removeLoadingItemAction());
+    // }
   };
 };
 

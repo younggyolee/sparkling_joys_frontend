@@ -1,3 +1,19 @@
+.rootContainer {
+  width: 100%;
+  height: 100%;
+  /* background-color: lightpink; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* margin: 0 auto; */
+  text-align: center;
+}
+
+.chartContainer {
+  display: flex;
+  justify-content: center;
+}
+
 #itemMainImage {
-  width: 500px;
+  width: 300px;
 }

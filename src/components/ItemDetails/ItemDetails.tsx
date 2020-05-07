@@ -72,7 +72,7 @@ const ItemDetails: React.FC<ItemDetailsProps> = ({
   );
 
   return (
-    <div>
+    <div className={styles.rootContainer}>
       <div>
         <img src={imageURL} id={styles.itemMainImage}/>
       </div>
@@ -171,10 +171,10 @@ const ItemDetails: React.FC<ItemDetailsProps> = ({
           REMOVE
         </button>
       </div>
-      <div>
+      <div className={styles.chartContainer}>
         {renderLineChart}
       </div>
-      <div>
+      {/* <div> */}
         <table>
           <thead>
             <tr>
@@ -198,7 +198,7 @@ const ItemDetails: React.FC<ItemDetailsProps> = ({
             }
           </tbody>
         </table>
-      </div>
+      {/* </div> */}
     </div>
   );
 }

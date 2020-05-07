@@ -18,16 +18,16 @@ function Search({ onSearch }: SearchProps) {
   }
 
   return (
-    <>
+    <div className={styles.rootContainer}>
       <input
         className={styles.searchInput}
         type='text'
+        placeholder='Search'
         value={text}
         onChange={event => setText(event.target.value)}
         onKeyPress={handleKeyPress}
       />
-      <FontAwesomeIcon icon={ faPlus } />
-    </>
+    </div>
   );
 }
 
