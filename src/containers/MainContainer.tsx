@@ -88,6 +88,7 @@ const MainContainer: React.FC<MainContainerProps> = ({
   ) {
     await updateItemIsOwned(userId, itemId, isOwned);
     await updateItems();
+    await updateTotalValueAndCost();
   }
 
   return (

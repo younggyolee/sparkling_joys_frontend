@@ -36,10 +36,13 @@ const SearchContainer: React.FC<SearchContainerProps> = ({
       imageURL: `${process.env.REACT_APP_PUBLIC_URL}/images/loading.gif`
     });
     history.push('/main');
-    await addItem(userId, keyword);
-    const items = await getItems(userId);
-    removeLoadingItem();
-    setAllItems(items);
+    try {
+      await addItem(userId, keyword);
+    } finally {
+      const items = await getItems(userId);
+      removeLoadingItem();
+      setAllItems(items);
+    }
   }
 
   return (

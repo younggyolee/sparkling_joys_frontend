@@ -6,7 +6,6 @@
 
 .assetDisplayContainer {
   padding: 50px;
-  margin-top: 60px;
 }
 
 .assetDisplayText {
@@ -21,17 +20,27 @@
 
 .itemListViewButtons {
   margin-right: 40px;
+  font-size: 15px;
 }
 
 .itemListViewButtons:hover {
   cursor: pointer;
-  filter: contrast(0.1);
+  filter: contrast(0.5);
 }
 
-.boldText {
+.boldAssetText {
   color: black;
 }
 
-.fadedOutText {
+.lightAssetText {
   color: lightgrey;
 }
+
+.normalItemListViewText {
+  font-weight: normal;
+}
+
+.boldItemListViewText {
+  font-weight: bold;
+}
+

@@ -212,7 +212,21 @@ const ItemDetails: React.FC<ItemDetailsProps> = ({
         </div>
       </div>
       <div className={styles.chartContainer}>
-        <h2>Secondhand Market Price</h2>
+        <div className={styles.chartHeaderContainer}>
+          <div>
+            <h2>Secondhand Market Price</h2>
+          </div>
+          <div>
+            <label className={styles.switch}>
+              <input
+                checked={newIsOwned}
+                onChange={() => setNewIsOwned(!newIsOwned)}
+                type='checkbox'
+              />
+              <span className={styles.slider} />
+            </label>
+          </div>
+        </div>
         <div>
           {renderLineChart}
         </div>

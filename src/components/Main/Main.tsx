@@ -41,8 +41,8 @@ const Main: React.FC<MainProps> = ({
                ${styles[
                 (itemListView === ITEM_LIST_VIEW_TYPES.ALL) ||
                 (itemListView === ITEM_LIST_VIEW_TYPES.OWNED) ? 
-                'boldText' :
-                'fadedOutText'
+                'boldAssetText' :
+                'lightAssetText'
               ]}`
             }
           >
@@ -62,8 +62,8 @@ const Main: React.FC<MainProps> = ({
                ${styles[
                 (itemListView === ITEM_LIST_VIEW_TYPES.ALL) ||
                 (itemListView === ITEM_LIST_VIEW_TYPES.WISHED) ? 
-                'boldText' :
-                'fadedOutText'
+                'boldAssetText' :
+                'lightAssetText'
               ]}`
             }
           >
@@ -79,19 +79,40 @@ const Main: React.FC<MainProps> = ({
       </div>
       <div className={styles.itemListViewButtonsContainer}>
         <span
-          className={styles.itemListViewButtons}
+          className={
+            `${styles.itemListViewButtons}
+             ${styles[
+                (itemListView === ITEM_LIST_VIEW_TYPES.ALL) ? 
+                'boldItemListViewText' :
+                'greyText'
+             ]}`
+          }
           onClick={() => onItemListViewClick(ITEM_LIST_VIEW_TYPES.ALL)}
         >
           ALL
         </span>
         <span
-          className={styles.itemListViewButtons}
+          className={
+            `${styles.itemListViewButtons}
+             ${styles[
+                (itemListView === ITEM_LIST_VIEW_TYPES.OWNED) ? 
+                'boldItemListViewText' :
+                'normalItemListViewText'
+             ]}`
+          }
           onClick={() => onItemListViewClick(ITEM_LIST_VIEW_TYPES.OWNED)}
         >
           OWNED
         </span>
         <span
-          className={styles.itemListViewButtons}
+          className={
+            `${styles.itemListViewButtons}
+             ${styles[
+                (itemListView === ITEM_LIST_VIEW_TYPES.WISHED) ? 
+                'boldItemListViewText' :
+                'normalItemListViewText'
+             ]}`
+          }
           onClick={() => onItemListViewClick(ITEM_LIST_VIEW_TYPES.WISHED)}
         >
           WISHED

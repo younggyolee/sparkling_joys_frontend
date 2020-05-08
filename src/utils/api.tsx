@@ -1,9 +1,10 @@
 import axios from 'axios';
 
 export async function addItem(userId: string, keyword: string) {
-  userId ?
-  (await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/users/${userId}/items/${keyword}`)) :
-  (await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/guest/items/${keyword}`));
+  let { data }: any = userId ?
+    (await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/users/${userId}/items/${keyword}`)) :
+    (await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/guest/items/${keyword}`));
+  return data;
 }
 
 export async function getItems(userId: string) {
