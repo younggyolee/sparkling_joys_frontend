@@ -2,11 +2,13 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { userIdReducer } from './userId/reducers';
 import { itemsReducer } from './items/reducers';
 import { loadingItemsReducer } from './loadingItems/reducers';
+import { itemListViewReducer } from './itemListView/reducers';
 
 const rootReducer = combineReducers({
   userId: userIdReducer,
   items: itemsReducer,
-  loadingItems: loadingItemsReducer
+  loadingItems: loadingItemsReducer,
+  itemListView: itemListViewReducer
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom';
 import Search from '../components/Search/Search';
 import { RootState } from '../store';
-import { setItemsAction } from '../store/items/actions';
+import { setAllItemsAction } from '../store/items/actions';
 import { Items } from '../store/items/types';
 import { loadingItem } from '../store/loadingItems/types';
 import { addItem, getItems } from '../utils/api';
@@ -17,14 +17,14 @@ axios.defaults.withCredentials = true;
 
 interface SearchContainerProps {
   userId: string
-  setItems: (items: Items) => void,
+  setAllItems: (items: Items) => void,
   addLoadingItem: (loadingItem: loadingItem) => void,
   removeLoadingItem: () => void
 };
 
 const SearchContainer: React.FC<SearchContainerProps> = ({
   userId,
-  setItems,
+  setAllItems,
   addLoadingItem,
   removeLoadingItem
 }) => {
@@ -39,7 +39,7 @@ const SearchContainer: React.FC<SearchContainerProps> = ({
     await addItem(userId, keyword);
     const items = await getItems(userId);
     removeLoadingItem();
-    setItems(items);
+    setAllItems(items);
   }
 
   return (
@@ -53,8 +53,8 @@ const mapStateToProps = (state: RootState) => ({
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    setItems(items: Items) {
-      dispatch(setItemsAction(items));
+    setAllItems(items: Items) {
+      dispatch(setAllItemsAction(items));
     },
     addLoadingItem(loadingItem: loadingItem) {
       dispatch(addLoadingItemAction(loadingItem));

@@ -40,7 +40,7 @@ function Search({ onSearch }: SearchProps) {
         autoFocus
         className={styles.searchInput}
         type='text'
-        placeholder='Search'
+        placeholder='Search for a specific item (e.g. Airpods Pro)'
         value={text}
         onChange={event => setText(event.target.value)}
         onKeyPress={handleKeyPress}

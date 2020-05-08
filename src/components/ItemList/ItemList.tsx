@@ -13,7 +13,6 @@ interface ItemListProps {
   items: Items,
   loadingItems: loadingItems,
   onCoinIconClick: (
-    // userId: string,
     itemId: string,
     isOwned: boolean
   ) => void

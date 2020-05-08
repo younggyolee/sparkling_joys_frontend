@@ -8,11 +8,7 @@ import {
 import Header from '../components/Header/Header';
 import { RootState } from '../store';
 import { setUserIdAction } from '../store/userId/actions';
-import { setItemsAction } from '../store/items/actions';
-import { addLoadingItemAction, removeLoadingItemAction } from '../store/loadingItems/actions';
-import { Items } from '../store/items/types';
-import { loadingItem } from '../store/loadingItems/types';
-import { addItem, getItems, logout } from '../utils/api';
+import { logout } from '../utils/api';
 import axios from 'axios';
 axios.defaults.withCredentials = true;
 
