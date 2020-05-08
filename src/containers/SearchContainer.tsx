@@ -10,7 +10,7 @@ import { RootState } from '../store';
 import { setItemsAction } from '../store/items/actions';
 import { Items } from '../store/items/types';
 import { loadingItem } from '../store/loadingItems/types';
-import { addItem, getItems, logout } from '../utils/api';
+import { addItem, getItems } from '../utils/api';
 import { addLoadingItemAction, removeLoadingItemAction } from '../store/loadingItems/actions';
 import axios from 'axios';
 axios.defaults.withCredentials = true;

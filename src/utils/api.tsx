@@ -72,6 +72,26 @@ export async function updateItem(
   return result;
 };
 
+export async function updateItemIsOwned(
+  userId: string,
+  itemId: string,
+  isOwned: boolean
+) {
+  let result;
+  userId ?
+  (result = await axios.put(
+    `${process.env.REACT_APP_BACKEND_URL}/api/users/${userId}/items/${itemId}/isOwned`, {
+      isOwned
+    }
+  )) :
+  (result = await axios.put(
+    `${process.env.REACT_APP_BACKEND_URL}/api/guest/items/${itemId}/isOwned`, {
+      isOwned
+    }
+  ));
+  return result;
+}
+
 export async function getItemDetails(itemId: string) {
   const { data } = await axios.get(
     `${process.env.REACT_APP_BACKEND_URL}/api/items/${itemId}/details`
@@ -99,3 +119,4 @@ export async function getUser() {
   );
   return data;
 }
+

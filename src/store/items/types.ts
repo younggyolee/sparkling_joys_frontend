@@ -3,7 +3,8 @@ export interface Item {
   title: string,
   price: number,
   priceCurrency: string,
-  imageURL: string
+  imageURL: string,
+  isOwned: boolean
 };
 
 export interface Items extends Array<Item>{};

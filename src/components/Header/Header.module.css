@@ -12,11 +12,19 @@
   width: 35px;
 }
 
+#addIcon:hover {
+  filter: contrast(0.1);
+}
+
 #rightButtonArea {
   /* background-color: thistle; */
 }
 
-.loginButtons {
+.loginButtonsContainer {
   margin-right: 50px;
   display: inline-block;
+}
+
+.loginButtons:hover {
+  filter: contrast(0.1);
 }

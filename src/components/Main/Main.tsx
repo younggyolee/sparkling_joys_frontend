@@ -12,13 +12,19 @@ interface MainProps {
   loadingItems: loadingItems,
   totalValue: number,
   totalCost: number
+  onCoinIconClick: (
+    // userId: string,
+    itemId: string,
+    isOwned: boolean
+  ) => void
 };
 
 const Main: React.FC<MainProps> = ({
   items,
   loadingItems,
   totalValue,
-  totalCost
+  totalCost,
+  onCoinIconClick
 }) => {
   return (
     <div className={styles.rootContainer}>
@@ -46,7 +52,11 @@ const Main: React.FC<MainProps> = ({
           </span>
         </div>
       </div>
-      <ItemList items={items} loadingItems={loadingItems} />
+      <ItemList
+        items={items}
+        loadingItems={loadingItems}
+        onCoinIconClick={onCoinIconClick}
+      />
     </div>
   );
 }

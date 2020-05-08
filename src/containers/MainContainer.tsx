@@ -8,7 +8,7 @@ import { setUserIdAction } from '../store/userId/actions';
 import { setItemsAction } from '../store/items/actions';
 import { Items } from '../store/items/types';
 import { loadingItems } from '../store/loadingItems/types';
-import { getItems, getTotalValue, getTotalCost } from '../utils/api';
+import { getItems, getTotalValue, getTotalCost, updateItemIsOwned } from '../utils/api';
 
 interface MainContainerProps {
   userId: string,
@@ -26,32 +26,48 @@ const MainContainer: React.FC<MainContainerProps> = ({
   const [totalValue, setTotalValue] = useState(0);
   const [totalCost, setTotalCost] = useState(0);
 
+  async function updateItems() {
+    const items = await getItems(userId);
+    setItems(items);
+  }
+
+  async function updateTotalValueAndCost() {
+    const fetchedTotalValue = await getTotalValue(userId);
+    const fetchedTotalCost = await getTotalCost(userId);
+    setTotalValue(fetchedTotalValue);
+    setTotalCost(fetchedTotalCost);
+  }
+
   useEffect(() => {
     (async() => {
-      const items = await getItems(userId);
-      const fetchedTotalValue = await getTotalValue(userId);
-      const fetchedTotalCost = await getTotalCost(userId);
-      setItems(items);
-      setTotalValue(fetchedTotalValue);
-      setTotalCost(fetchedTotalCost);
+      await updateItems();
+      await updateTotalValueAndCost();
     })();
   }, [userId]);
 
   useEffect(() => {
     (async() => {
-      const fetchedTotalValue = await getTotalValue(userId);
-      const fetchedTotalCost = await getTotalCost(userId);
-      setTotalValue(fetchedTotalValue);
-      setTotalCost(fetchedTotalCost);
+      await updateTotalValueAndCost();
     })();
   }, [items]);
+
+  async function handleCoinIconClick(
+    // userId: string,
+    itemId: string,
+    isOwned: boolean
+  ) {
+    await updateItemIsOwned(userId, itemId, isOwned);
+    await updateItems();
+    // await updateTotalValueAndCost();
+  }
 
   return (
     <Main
       items={items}
       loadingItems={loadingItems}
       totalValue={totalValue}
-      totalCost={totalCost} 
+      totalCost={totalCost}
+      onCoinIconClick={handleCoinIconClick}
     />
   );
 };

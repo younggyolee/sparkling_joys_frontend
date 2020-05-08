@@ -11,10 +11,15 @@ axios.defaults.withCredentials = true;
 
 interface ItemListProps {
   items: Items,
-  loadingItems: loadingItems
+  loadingItems: loadingItems,
+  onCoinIconClick: (
+    // userId: string,
+    itemId: string,
+    isOwned: boolean
+  ) => void
 };
 
-const ItemList: React.FC<ItemListProps> = ({ items, loadingItems }) => {
+const ItemList: React.FC<ItemListProps> = ({ items, loadingItems, onCoinIconClick }) => {
   return (
     <div className={styles.rootContainer}>
       {loadingItems.map((loadingItem, index) =>
@@ -26,9 +31,11 @@ const ItemList: React.FC<ItemListProps> = ({ items, loadingItems }) => {
                 title: loadingItem.title,
                 price: 0,
                 priceCurrency: '',
-                imageURL: loadingItem.imageURL
+                imageURL: loadingItem.imageURL,
+                isOwned: false
               }}
-              key={index} 
+              key={index}
+              onCoinIconClick={onCoinIconClick}
             />
           </div>
         )
@@ -36,9 +43,11 @@ const ItemList: React.FC<ItemListProps> = ({ items, loadingItems }) => {
       {items.map((item, index) => 
         (
           <div key={index} className={styles.itemCardContainer}>
-            <Link to={`/items/${item.id}`}>
-              <ItemCard item={item} key={index} />
-            </Link>
+            <ItemCard
+              item={item}
+              key={index}
+              onCoinIconClick={onCoinIconClick} 
+            />
           </div>
         )
       )}
