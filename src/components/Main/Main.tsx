@@ -10,26 +10,41 @@ axios.defaults.withCredentials = true;
 interface MainProps {
   items: Items,
   loadingItems: loadingItems,
-  totalValue: number
+  totalValue: number,
+  totalCost: number
 };
 
 const Main: React.FC<MainProps> = ({
   items,
   loadingItems,
-  totalValue
+  totalValue,
+  totalCost
 }) => {
   return (
     <div className={styles.rootContainer}>
       <div className={styles.assetDisplayContainer}>
-        <span className={styles.assetDisplayText}>
-          {'Your assets worth '}
-          {Number(totalValue).toLocaleString('en-US', {
-            style: 'currency',
-            currency: 'USD',
-            minimumFractionDigits: 0,
-            maximumFractionDigits: 0,        
-          })}
-        </span>
+        <div>
+          <span className={styles.assetDisplayText}>
+            {'Your assets worth '}
+            {Number(totalValue).toLocaleString('en-US', {
+              style: 'currency',
+              currency: 'USD',
+              minimumFractionDigits: 0,
+              maximumFractionDigits: 0,        
+            })}
+          </span>
+        </div>
+        <div>
+          <span className={styles.assetDisplayText}>
+            {'Your wishlist costs '}
+            {Number(totalCost).toLocaleString('en-US', {
+              style: 'currency',
+              currency: 'USD',
+              minimumFractionDigits: 0,
+              maximumFractionDigits: 0,        
+            })}
+          </span>
+        </div>
       </div>
       <ItemList items={items} loadingItems={loadingItems} />
     </div>

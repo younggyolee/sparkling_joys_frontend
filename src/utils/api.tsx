@@ -20,6 +20,13 @@ export async function getTotalValue(userId: string) {
   return data.totalValue;
 };
 
+export async function getTotalCost(userId: string) {
+  let { data }: any = userId ?
+    (await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/users/${userId}/items`)) :
+    (await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/guest/items`));
+  return data.totalCost;
+}
+
 export async function deleteItem(userId: string, itemId: string) {
   let result;
   userId ?
@@ -38,8 +45,10 @@ export async function updateItem(
   title: string,
   price: number,
   imageURL: string,
-  description: string
+  description: string,
+  isOwned: boolean
 ) {
+  console.log('updating isOwned to ', isOwned);
   let result;
   userId ?
   (result = await axios.put(
@@ -47,7 +56,8 @@ export async function updateItem(
       title,
       price,
       imageURL,
-      description
+      description,
+      isOwned
     }
   )) :
   (result = await axios.put(
@@ -55,7 +65,8 @@ export async function updateItem(
       title,
       price,
       imageURL,
-      description
+      description,
+      isOwned
     }
   ));
   return result;

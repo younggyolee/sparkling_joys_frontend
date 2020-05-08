@@ -17,6 +17,7 @@ export interface Item {
   imageURL: string,
   description: string,
   creationTime: string,
+  isOwned: boolean
 };
 
 export interface Listing {
@@ -45,6 +46,7 @@ const ItemDetailsContainer: React.FC<any> = (props) => {
     imageURL: '',
     description: '',
     creationTime: '',
+    isOwned: true
   });
   const [listings, setListings] = useState<Listing[]>([]);
   const [avgPrices, setAvgPrices] = useState<avgPrice[]>([]);
@@ -78,6 +80,7 @@ const ItemDetailsContainer: React.FC<any> = (props) => {
       imageURL={item.imageURL}
       description={item.description}
       creationTime={item.creationTime}
+      isOwned={item.isOwned}
       listings={listings}
       onItemUpdate={updateItemDetails}
       avgPrices={avgPrices}

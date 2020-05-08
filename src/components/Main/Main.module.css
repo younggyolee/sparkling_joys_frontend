@@ -5,8 +5,8 @@
 }
 
 .assetDisplayContainer {
-  display: flex;
-  flex-direction: row;
+  /* display: flex; */
+  /* flex-direction: row; */
   /* background-color: thistle; */
   padding: 50px;
   margin-top: 60px;

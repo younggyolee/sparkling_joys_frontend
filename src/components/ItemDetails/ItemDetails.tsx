@@ -21,6 +21,7 @@ interface ItemDetailsProps {
   imageURL: string,
   description: string,
   creationTime: string,
+  isOwned: boolean,
   listings: Listing[]
   onItemUpdate: (itemId: string) => void
   avgPrices: avgPrice[]
@@ -36,6 +37,7 @@ const ItemDetails: React.FC<ItemDetailsProps> = ({
   imageURL,
   description,
   creationTime,
+  isOwned,
   listings,
   onItemUpdate,
   avgPrices
@@ -45,6 +47,7 @@ const ItemDetails: React.FC<ItemDetailsProps> = ({
   const [newPrice, setNewPrice] = useState(price);
   const [newImageURL, setNewImageURL] = useState(imageURL);
   const [newDescription , setNewDescription] = useState(description);
+  const [newIsOwned, setNewIsOwned] = useState(isOwned);
   const [showListings, setShowListings] = useState(false);
 
   const history = useHistory();
@@ -134,6 +137,21 @@ const ItemDetails: React.FC<ItemDetailsProps> = ({
                       />
                     </td>
                   </tr>
+                  <tr>
+                    <td>
+                      I own this
+                    </td>
+                    <td>
+                      <label className={styles.switch}>
+                        <input
+                          checked={newIsOwned}
+                          onChange={() => setNewIsOwned(!newIsOwned)}
+                          type='checkbox'
+                        />
+                        <span className={styles.slider} />
+                      </label>
+                    </td>
+                  </tr>
                 </tbody>
               </table>
               <button
@@ -144,7 +162,8 @@ const ItemDetails: React.FC<ItemDetailsProps> = ({
                     newTitle,
                     newPrice,
                     newImageURL,
-                    newDescription
+                    newDescription,
+                    newIsOwned
                   );
                   onItemUpdate(itemId);
                   setShowModal(false);
