@@ -1,99 +1,54 @@
 import React, { useState, useEffect } from 'react';
 import styles from './Main.module.css';
-const axios = require('axios');
+import ItemList from '../ItemList/ItemList';
+import { Items } from '../../store/items/types';
+import axios from 'axios';
+import HeaderContainer from '../../containers/HeaderContainer';
+import { loadingItems } from '../../store/loadingItems/types';
 axios.defaults.withCredentials = true;
 
-function Index() {
-  interface Item {
-    id: string,
-    title: string,
-    price: number,
-    priceCurrency: string,
-    imageURL: string
-  };
+interface MainProps {
+  items: Items,
+  loadingItems: loadingItems,
+  totalValue: number,
+  totalCost: number
+};
 
-  interface Items extends Array<Item>{}
-
-  const [title, setTitle] = useState('');
-  const [items, setItems] = useState<Items>([]);
-  const [totalValue, setTotalValue] = useState(0);
-
-  const [tempPrice, setTempPrice] = useState('');
-
-  useEffect(() => {
-    updateItems();
-  }, []);
-
-  async function updateItems() {
-    const response = await axios.get(
-      `${process.env.REACT_APP_BACKEND_URL}/api/guest/items`
-    );
-    setItems(response.data.items);
-    setTotalValue(response.data.totalValue);
-  }
-
-  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    await axios.post(
-      `${process.env.REACT_APP_BACKEND_URL}/api/guest/items/${title}`
-    );
-    updateItems();
-  }
-
-  async function handleDelete(itemId: string) {
-    await axios.delete(
-      `${process.env.REACT_APP_BACKEND_URL}/api/guest/items/${itemId}`
-    );
-    updateItems();
-  }
-
-
+const Main: React.FC<MainProps> = ({
+  items,
+  loadingItems,
+  totalValue,
+  totalCost
+}) => {
   return (
-    <div className={styles.container}>
-      <div className={styles.totalValueContainer}>
-        Your Assets value at ${totalValue}
+    <div className={styles.rootContainer}>
+      <div className={styles.assetDisplayContainer}>
+        <div>
+          <span className={styles.assetDisplayText}>
+            {'Your assets worth '}
+            {Number(totalValue).toLocaleString('en-US', {
+              style: 'currency',
+              currency: 'USD',
+              minimumFractionDigits: 0,
+              maximumFractionDigits: 0,        
+            })}
+          </span>
+        </div>
+        <div>
+          <span className={styles.assetDisplayText}>
+            {'Your wishlist costs '}
+            {Number(totalCost).toLocaleString('en-US', {
+              style: 'currency',
+              currency: 'USD',
+              minimumFractionDigits: 0,
+              maximumFractionDigits: 0,        
+            })}
+          </span>
+        </div>
       </div>
-      <div className={styles.searchContainer}>
-        <form onSubmit={handleSubmit}>
-          <input type='text' onChange={event => setTitle(event.target.value)}/>
-          <input type='submit' value='Add' />
-        </form>
-      </div>
-      <div className={styles.itemsContainer}>
-        {items.map((item, index) => {
-          return (
-            <div key={index}>
-              <img
-                src={item.imageURL}
-                className={styles.itemImages}
-              />
-              <p>{item.priceCurrency} {item.price}</p>
-              <p>{item.title}</p>
-              <div>
-                  <input type='text' onChange={(event: React.ChangeEvent<HTMLInputElement>) => setTempPrice(event.target.value)} />
-                  <button
-                    onClick={async() => {
-                      await axios.put(
-                        `${process.env.REACT_APP_BACKEND_URL}/api/guest/items/${item.id}`,
-                        {
-                          type: 'price',
-                          price: tempPrice,
-                          priceCurrency: 'USD'
-                        }
-                      );
-                      updateItems();
-                    }}
-                  >Edit price</button>
-              </div>
-              <button onClick={() => handleDelete(item.id)}>
-                Delete
-              </button>
-            </div>
-          )
-        })}
-      </div>
+      <ItemList items={items} loadingItems={loadingItems} />
     </div>
   );
 }
 
-export default Index;
+export default Main;

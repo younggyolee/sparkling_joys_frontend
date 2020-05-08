@@ -1,0 +1,22 @@
+.rootContainer {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  /* background-color: tomato; */
+  justify-content: space-between  ;
+  padding: 30px;
+  font-size: 15px;
+}
+
+#addIcon {
+  width: 35px;
+}
+
+#rightButtonArea {
+  /* background-color: thistle; */
+}
+
+.loginButtons {
+  margin-right: 50px;
+  display: inline-block;
+}
