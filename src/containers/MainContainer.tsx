@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -11,7 +11,7 @@ import { setUserIdAction } from '../store/userId/actions';
 import { setItemsAction } from '../store/items/actions';
 import { Items } from '../store/items/types';
 import { loadingItems } from '../store/loadingItems/types';
-import { getItems } from '../utils/api';
+import { getItems, getTotalValue } from '../utils/api';
 
 interface MainContainerProps {
   userId: string,
@@ -26,15 +26,19 @@ const MainContainer: React.FC<MainContainerProps> = ({
   loadingItems,
   setItems
 }) => {
+  const [totalValue, setTotalValue] = useState(0);
+
   useEffect(() => {
     (async() => {
       const items = await getItems(userId);
+      const total = await getTotalValue(userId);
       setItems(items);
+      setTotalValue(total);
     })();
   }, [userId]);
 
   return (
-    <Main items={items} loadingItems={loadingItems} />
+    <Main items={items} loadingItems={loadingItems} totalValue={totalValue} />
   );
 };
 

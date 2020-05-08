@@ -27,7 +27,14 @@ const ItemCard: React.FC<ItemCardProps> = ({ item }) => {
           </div>
           <div className={styles.priceTextContainer}>
             <span className={styles.prriceText}>
-              {item.priceCurrency} {item.price || ''}
+              {/* {item.priceCurrency} */}
+              {/* {item.price || ''} */}
+              {Number(item.price || 0).toLocaleString('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0,        
+              })}
             </span>
           </div>
         </div>

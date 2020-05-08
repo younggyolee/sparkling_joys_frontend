@@ -16,10 +16,10 @@ export const loadingItemsReducer = (
     case SET_LOADING_ITEMS:
       return action.loadingItems;
     case ADD_LOADING_ITEM:
-      return [...state, action.loadingItem];
+      return [action.loadingItem, ...state];
     case REMOVE_LOADING_ITEM:
       const stateCopy = JSON.parse(JSON.stringify(state));
-      stateCopy.shift();
+      stateCopy.pop();
       return [...stateCopy];
     default:
       return state;

@@ -1,12 +1,14 @@
 .rootContainer {
   width: 100%;
+  max-width: 800px;
   height: 100%;
-  /* background-color: lightpink; */
+  margin: 0 auto;
+  padding-bottom: 50px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* margin: 0 auto; */
   text-align: center;
+  /* background-color: lightsalmon; */
 }
 
 .chartContainer {
@@ -16,4 +18,65 @@
 
 #itemMainImage {
   width: 300px;
+}
+
+.headerBar {
+  /* background-color: lightskyblue; */
+  display: flex;
+  justify-content: space-between;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.headerTitleContainer {
+  display: inline-block;
+  /* background-color: lightslategray; */
+  padding: 20px;
+}
+
+.titleContainer {
+  padding-bottom: 5px;
+}
+
+.titleText {
+  text-transform: uppercase;
+  /* font-size: 20px; */
+  font-weight: bold;
+}
+
+.buttonsContainer {
+  display: flex;
+  justify-content: space-between;
+  padding: 30px;
+}
+
+.buttonIcons {
+  display: inline-block;
+  margin-right: 30px;
+  cursor: pointer;
+  /* background-color: lightsalmon; */
+}
+
+.buttonIcons:hover {
+  filter: contrast(0.1); 
+}
+
+.chartContainer {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.showListingButtonContainer {
+  padding: 50px;
+  
+}
+
+.showListingButtonText {
+  color: grey;
+}
+
+.showListingButtonText:hover {
+  cursor: pointer;
+  color: black;
 }

@@ -10,6 +10,7 @@ import {
 import { getUser } from '../utils/api';
 import { RootState } from '../store';
 import { setUserIdAction } from '../store/userId/actions';
+import ReceptionContainer from './ReceptionContainer';
 import LoginContainer from './LoginContainer';
 import MainContainer from './MainContainer';
 import ItemDetailsContainer from './ItemDetailsContainer';
@@ -27,7 +28,6 @@ const AppContainer: React.FC<AppContainerProps> = ({ userId, setUserId }) => {
     (async() => {
       const data = await getUser();
       if (data.userId) setUserId(data.userId);
-      console.log('userData', data);
     })();
   }, [userId]);
 
@@ -35,6 +35,12 @@ const AppContainer: React.FC<AppContainerProps> = ({ userId, setUserId }) => {
     <>
       <Switch>
         <Redirect exact from='/' to='/main' />
+        <Route exact path='/reception' render={() => (
+          <>
+            <HeaderContainer />
+            <ReceptionContainer />
+          </>
+        )} />
         <Route exact path='/signup' component={Signup} />
         <Route exact path='/login' component={LoginContainer} />
         <Route exact path='/main' render={() => (

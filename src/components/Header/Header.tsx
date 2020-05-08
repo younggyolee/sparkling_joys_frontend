@@ -1,8 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Header.module.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 
 interface HeaderProps {
   // onSearch: (keyword: string) => void,
@@ -15,7 +13,6 @@ function Header({
   userId,
   onLogout
 }: HeaderProps) {
-  console.log('userId', userId);
   return (
     <div className={styles.rootContainer}>
       <div id={styles.addIconContainer}>

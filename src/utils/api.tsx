@@ -13,6 +13,13 @@ export async function getItems(userId: string) {
   return data.items;
 };
 
+export async function getTotalValue(userId: string) {
+  let { data }: any = userId ?
+    (await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/users/${userId}/items`)) :
+    (await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/guest/items`));
+  return data.totalValue;
+};
+
 export async function deleteItem(userId: string, itemId: string) {
   let result;
   userId ?

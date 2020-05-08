@@ -1,0 +1,10 @@
+.rootContainer {
+  background-color: lightyellow;
+  width: 100%;
+  height: 100vh;
+  background: url('luxury-watch.jpg')
+}
+
+.mainMessageText {
+  color: white;
+}

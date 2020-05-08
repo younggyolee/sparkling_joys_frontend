@@ -14,13 +14,6 @@ interface ItemListProps {
 const ItemList: React.FC<ItemListProps> = ({ items, loadingItems }) => {
   return (
     <div className={styles.rootContainer}>
-      {items.map((item, index) => 
-        (
-          <div key={index} className={styles.itemCardContainer}>
-            <ItemCard item={item} key={index} />
-          </div>
-        )
-      )}
       {loadingItems.map((loadingItem, index) =>
         (
           <div key={index} className={styles.itemCardContainer}>
@@ -34,6 +27,13 @@ const ItemList: React.FC<ItemListProps> = ({ items, loadingItems }) => {
               }}
               key={index} 
             />
+          </div>
+        )
+      )}
+      {items.map((item, index) => 
+        (
+          <div key={index} className={styles.itemCardContainer}>
+            <ItemCard item={item} key={index} />
           </div>
         )
       )}
