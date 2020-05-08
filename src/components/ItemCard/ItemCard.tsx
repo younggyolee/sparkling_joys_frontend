@@ -34,7 +34,11 @@ const ItemCard: React.FC<ItemCardProps> = ({ item, onCoinIconClick }) => {
       {!item.id &&
         <div className={styles.imageContainer}>
           <img
-            src={item.imageURL}
+            src={
+              (item.id && !item.imageURL) ?
+              (`${process.env.REACT_APP_PUBLIC_URL}/images/icons8-box-512.png`) :
+              item.imageURL
+            }
             className={styles.itemImages}
           />
         </div>

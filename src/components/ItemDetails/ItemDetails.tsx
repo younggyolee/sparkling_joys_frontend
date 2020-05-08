@@ -92,13 +92,21 @@ const ItemDetails: React.FC<ItemDetailsProps> = ({
 
   return (
     <div className={styles.rootContainer}>
-      <div>
+      {/* <div> */}
         {showModal &&
           <Modal 
             show={showModal}
             onClose={() => setShowModal(false)}
           >
-            <div>
+            <div className={styles.modalContainer}>
+              <div className={styles.modalHeaderContainer}>
+                <div
+                  className={styles.modalHeaderCloseButton}
+                  onClick={() => setShowModal(false)}
+                >
+                  <FontAwesomeIcon icon={ faTimes } />
+                </div>
+              </div>
               <table>
                 <tbody>
                   <tr>
@@ -154,38 +162,38 @@ const ItemDetails: React.FC<ItemDetailsProps> = ({
                   </tr>
                 </tbody>
               </table>
-              <button
-                onClick={() => {
-                  updateItem(
-                    userId,
-                    itemId,
-                    newTitle,
-                    newPrice,
-                    newImageURL,
-                    newDescription,
-                    newIsOwned
-                  );
-                  onItemUpdate(itemId);
-                  setShowModal(false);
-                }}
-              >
-                Save
-              </button>
-              <button
-                onClick={() => setShowModal(false)}
-              >
-                Close
-              </button>
-              <div
-                onClick={handleDelete}
-                className={styles.buttonIcons}
-              >
-                <FontAwesomeIcon icon={ faTrashAlt } size={ '2x' }/>
+              <div className={styles.modalButtonsContainer}>
+                <button
+                  className={styles.secondaryButton}
+                  id={styles.closeButton}
+                  onClick={() => setShowModal(false)}
+                >
+                  Close
+                </button>
+                <button
+                  className={styles.primaryButton}
+                  id={styles.saveButton}
+                  onClick={() => {
+                    updateItem(
+                      userId,
+                      itemId,
+                      newTitle,
+                      newPrice,
+                      newImageURL,
+                      newDescription,
+                      newIsOwned
+                    );
+                    onItemUpdate(itemId);
+                    setShowModal(false);
+                  }}
+                >
+                  Save Changes
+                </button>
               </div>
             </div>
           </Modal>
         }
-      </div>
+      {/* </div> */}
       <div className={styles.buttonsContainer}>
         <div 
           className={styles.buttonIcons}
@@ -232,12 +240,12 @@ const ItemDetails: React.FC<ItemDetailsProps> = ({
         </div>
       </div>
       <div className={styles.showListingButtonContainer}>
-        <span
-          className={styles.showListingButtonText}
+        <button
+          className={styles.secondaryButton}
           onClick={() => setShowListings(!showListings)}
         >
           Show eBay Listings
-        </span>
+        </button>
       </div>
       { showListings &&
         <div>
@@ -266,6 +274,16 @@ const ItemDetails: React.FC<ItemDetailsProps> = ({
           </table>
         </div>
       }
+      <div>
+        <h2>Danger Zone</h2>
+        <div
+          onClick={handleDelete}
+          className={styles.buttonIcons}
+        >
+          <button className={styles.secondaryButton}>Remove</button>
+          {/* <FontAwesomeIcon icon={ faTrashAlt } size={ '2x' }/> */}
+        </div>
+      </div>
     </div>
   );
 }

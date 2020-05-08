@@ -33,12 +33,12 @@ const Modal = ({ show, onClose, children }) => {
   return (
     <div className={styles.modal} style={{ display: "block"}}>
       <div ref={modalRef} className={styles.modal_content}>
-        <button
+        {/* <button
           className={styles.close_button}
           onClick={handleCloseClick}
         >
           X
-        </button>
+        </button> */}
         <div className={styles.main_content}>
           {children}
         </div>

@@ -15,10 +15,10 @@ function Login({ onLoginSubmit }: StateProps) {
   const [password, setPassword] = useState('');
 
   return (
-    <div>
+    <div className={styles.rootContainer}>
       <div>
         <Link to='/main'>
-          Sparkling Joys [icon]
+          Sparkling Joys
         </Link>
       </div>
       <div>
@@ -39,6 +39,7 @@ function Login({ onLoginSubmit }: StateProps) {
       </div>
       <div>
         <button
+          className={styles.primaryButton}
           onClick={() => onLoginSubmit(username, password)}
         >
           Continue
@@ -46,7 +47,11 @@ function Login({ onLoginSubmit }: StateProps) {
       </div>
       <div>
         <Link to='/signup'>
-          <button>Create your new account</button>
+          <button
+            className={styles.secondaryButton}
+          >
+            Create your new account
+          </button>
         </Link>
       </div>
     </div>
