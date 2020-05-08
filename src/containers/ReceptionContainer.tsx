@@ -5,7 +5,6 @@ import {
   withRouter,
   useHistory
 } from 'react-router-dom';
-// import Search from '../components/Search/Search';
 import Reception from '../components/Reception/Reception';
 import { RootState } from '../store';
 import { setItemsAction } from '../store/items/actions';
@@ -46,7 +45,6 @@ const ReceptionContainer: React.FC<ReceptionContainerProps> = ({
   return (
     <>
       <Reception onSearch={handleSearch} />
-      {/* <Search onSearch={handleSearch} /> */}
     </>
   );
 };
