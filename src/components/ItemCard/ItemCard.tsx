@@ -12,7 +12,7 @@ interface ItemCardProps {
 const ItemCard: React.FC<ItemCardProps> = ({ item }) => {
   return (
     <div className={styles.rootContainer}>
-      <Link to={`/items/${item.id}`}>
+      {/* <Link to={`/items/${item.id}`}> */}
         <div className={styles.imageContainer}>
           <img
             src={item.imageURL}
@@ -38,7 +38,7 @@ const ItemCard: React.FC<ItemCardProps> = ({ item }) => {
             </span>
           </div>
         </div>
-      </Link>
+      {/* </Link> */}
     </div>
   );
 }

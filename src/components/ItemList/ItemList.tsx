@@ -1,4 +1,7 @@
-import React, { useState, useEffect, ReactHTML } from 'react';
+import React from 'react';
+import {
+  Link
+} from 'react-router-dom'
 import styles from './ItemList.module.css';
 import ItemCard from '../ItemCard/ItemCard';
 import { Items } from '../../store/items/types';
@@ -33,7 +36,9 @@ const ItemList: React.FC<ItemListProps> = ({ items, loadingItems }) => {
       {items.map((item, index) => 
         (
           <div key={index} className={styles.itemCardContainer}>
-            <ItemCard item={item} key={index} />
+            <Link to={`/items/${item.id}`}>
+              <ItemCard item={item} key={index} />
+            </Link>
           </div>
         )
       )}
