@@ -256,7 +256,7 @@ const ItemDetails: React.FC<ItemDetailsProps> = ({
           </div>
         }
       </div>
-      { showListings &&
+      {isTrackingPrice && showListings &&
         <div>
           <table>
             <thead>

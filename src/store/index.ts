@@ -1,11 +1,13 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { userIdReducer } from './userId/reducers';
+import { userNameReducer } from './userName/reducers';
 import { itemsReducer } from './items/reducers';
 import { loadingItemsReducer } from './loadingItems/reducers';
 import { itemListViewReducer } from './itemListView/reducers';
 
 const rootReducer = combineReducers({
   userId: userIdReducer,
+  userName: userNameReducer,
   items: itemsReducer,
   loadingItems: loadingItemsReducer,
   itemListView: itemListViewReducer

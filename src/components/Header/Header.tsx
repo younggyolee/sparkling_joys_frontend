@@ -4,11 +4,13 @@ import styles from './Header.module.css';
 
 interface HeaderProps {
   userId: string,
+  userName: string,
   onLogout: () => void
 };
 
 function Header({
   userId,
+  userName,
   onLogout
 }: HeaderProps) {
   return (
@@ -32,29 +34,38 @@ function Header({
             </span>
           </Link>
         </div>
-        <div className={styles.loginButtonsContainer}>
-          {userId &&
-            <span
-              id={styles.logoutText}
-              className={styles.loginButtons}
-              onClick={onLogout}
-            >
-              LOG OUT
-            </span>
-          }
-          {!userId &&
-            <>
-              <Link to='/login'>
-                <span
-                  id={styles.signupLink}
-                  className={styles.loginButtons}
-                >
-                  Sign in
-                </span>
-              </Link>
-            </>
-          }
-        </div>
+        {userId &&
+          <>
+            <div className={styles.loginButtonsContainer}>
+              <span
+                className={styles.loginButtons}
+              >
+                {userName}
+              </span>
+            </div>
+            <div className={styles.loginButtonsContainer}>
+              <span
+                id={styles.logoutText}
+                className={styles.loginButtons}
+                onClick={onLogout}
+              >
+                LOG OUT
+              </span>
+            </div>
+          </>
+        }
+        {!userId &&
+          <>
+            <Link to='/login'>
+              <span
+                id={styles.signupLink}
+                className={styles.loginButtons}
+              >
+                Sign in
+              </span>
+            </Link>
+          </>
+        }
       </div>
     </div>
   );

@@ -22,7 +22,7 @@ function Login({ onLoginSubmit }: StateProps) {
         </Link>
       </div>
       <div>
-        <h1> Login </h1>
+        <h3> Login </h3>
       </div>
       <div>
         Username: 

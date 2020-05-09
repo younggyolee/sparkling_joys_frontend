@@ -17,19 +17,29 @@ import ItemDetailsContainer from './ItemDetailsContainer';
 import HeaderContainer from './HeaderContainer';
 import SearchContainer from './SearchContainer';
 import Signup from '../components/Signup/Signup';
+import { setUserNameAction } from '../store/userName/actions';
 
 interface AppContainerProps {
   userId: string,
-  setUserId: (userId: string) => void
+  userName: string,
+  setUserId: (userId: string) => void,
+  setUserName: (userName: string) => void
 };
 
-const AppContainer: React.FC<AppContainerProps> = ({ userId, setUserId }) => {
+const AppContainer: React.FC<AppContainerProps> = ({
+  userId,
+  userName,
+  setUserId,
+  setUserName
+}) => {
   useEffect(() => {
     (async() => {
       const data = await getUser();
       if (data.userId) setUserId(data.userId);
+      if (data.username) setUserName(data.username);
+      console.log('userdata', data);
     })();
-  }, [userId]);
+  }, []);
 
   return (
     <>
@@ -71,11 +81,15 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
     setUserId(userId: string) {
       dispatch(setUserIdAction(userId));
     },
+    setUserName(userName: string) {
+      dispatch(setUserNameAction(userName));
+    }
   };
 };
 
 const mapStateToProps = (state: RootState) => ({
-  userId: state.userId
+  userId: state.userId,
+  userName: state.userName
 });
 
 export default withRouter(

@@ -61,7 +61,7 @@ const ItemDetailsContainer: React.FC<any> = (props) => {
   async function updateItemDetails(itemId: string) {
     const data = await getItemDetails(itemId);
     setItem(data.item);
-    // setListings(data.listings);
+    setListings(data.listings);
   }
 
   async function updateAvgPriceDaily(itemId: string) {
