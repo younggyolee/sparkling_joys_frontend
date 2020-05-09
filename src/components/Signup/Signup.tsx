@@ -31,10 +31,10 @@ function Signup() {
   }
 
   return (
-    <div>
+    <div className={styles.rootContainer}>
       <div>
         <Link to='/main'>
-          Sparkling Joys [icon]
+          Sparkling Joys
         </Link>
       </div>
       <div>
@@ -55,6 +55,7 @@ function Signup() {
       </div>
       <div>
         <button
+          className={styles.primaryButton}
           onClick={handleSubmit}
         >
           Create your Sparkling Joys account.

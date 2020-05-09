@@ -3,13 +3,11 @@ import { Link } from 'react-router-dom';
 import styles from './Header.module.css';
 
 interface HeaderProps {
-  // onSearch: (keyword: string) => void,
   userId: string,
   onLogout: () => void
 };
 
 function Header({
-  // onSearch,
   userId,
   onLogout
 }: HeaderProps) {
@@ -24,17 +22,21 @@ function Header({
         </Link>
       </div>
       <div id={styles.rightButtonArea}>
-        <div className={styles.loginButtons}>
+        <div className={styles.loginButtonsContainer}>
           <Link to='/main'>
-            <span id={styles.titleText}>
+            <span 
+              id={styles.titleText}
+              className={styles.loginButtons}
+            >
               Sparkling Joys
             </span>
           </Link>
         </div>
-        <div className={styles.loginButtons}>
+        <div className={styles.loginButtonsContainer}>
           {userId &&
             <span
               id={styles.logoutText}
+              className={styles.loginButtons}
               onClick={onLogout}
             >
               LOG OUT
@@ -43,7 +45,12 @@ function Header({
           {!userId &&
             <>
               <Link to='/login'>
-                <span id={styles.signupLink}>Sign in</span>
+                <span
+                  id={styles.signupLink}
+                  className={styles.loginButtons}
+                >
+                  Sign in
+                </span>
               </Link>
             </>
           }

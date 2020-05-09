@@ -1,9 +1,10 @@
 import axios from 'axios';
 
 export async function addItem(userId: string, keyword: string) {
-  userId ?
-  (await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/users/${userId}/items/${keyword}`)) :
-  (await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/guest/items/${keyword}`));
+  let { data }: any = userId ?
+    (await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/users/${userId}/items/${keyword}`)) :
+    (await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/guest/items/${keyword}`));
+  return data;
 }
 
 export async function getItems(userId: string) {
@@ -72,6 +73,26 @@ export async function updateItem(
   return result;
 };
 
+export async function updateItemIsOwned(
+  userId: string,
+  itemId: string,
+  isOwned: boolean
+) {
+  let result;
+  userId ?
+  (result = await axios.put(
+    `${process.env.REACT_APP_BACKEND_URL}/api/users/${userId}/items/${itemId}/isOwned`, {
+      isOwned
+    }
+  )) :
+  (result = await axios.put(
+    `${process.env.REACT_APP_BACKEND_URL}/api/guest/items/${itemId}/isOwned`, {
+      isOwned
+    }
+  ));
+  return result;
+}
+
 export async function getItemDetails(itemId: string) {
   const { data } = await axios.get(
     `${process.env.REACT_APP_BACKEND_URL}/api/items/${itemId}/details`
@@ -99,3 +120,4 @@ export async function getUser() {
   );
   return data;
 }
+

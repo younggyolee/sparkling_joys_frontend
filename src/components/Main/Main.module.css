@@ -5,13 +5,42 @@
 }
 
 .assetDisplayContainer {
-  /* display: flex; */
-  /* flex-direction: row; */
-  /* background-color: thistle; */
   padding: 50px;
-  margin-top: 60px;
 }
 
 .assetDisplayText {
   font-size: 30px;
 }
+
+.itemListViewButtonsContainer {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 20px;
+}
+
+.itemListViewButtons {
+  margin-right: 40px;
+  font-size: 15px;
+}
+
+.itemListViewButtons:hover {
+  cursor: pointer;
+  filter: contrast(0.5);
+}
+
+.boldAssetText {
+  color: black;
+}
+
+.lightAssetText {
+  color: lightgrey;
+}
+
+.normalItemListViewText {
+  font-weight: normal;
+}
+
+.boldItemListViewText {
+  font-weight: bold;
+}
+

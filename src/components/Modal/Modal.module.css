@@ -24,16 +24,16 @@
 .close_button {
   background-color: transparent;
   border: none;
-  position: absolute;
+  /* position: absolute; */
   right: 0;
   margin: 10px;
-  color: white;
+  /* color: white; */
   font-weight: bold;
   font-size: 30px;
 }
 
 .close_button:hover {
-  color: rgb(169,117,252);
+  /* color: rgb(169,117,252); */
 }
 
 .close_button:focus {
