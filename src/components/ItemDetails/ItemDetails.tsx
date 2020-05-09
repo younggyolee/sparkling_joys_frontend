@@ -7,7 +7,7 @@ import moment from 'moment';
 import { deleteItem, updateItem } from '../../utils/api';
 import styles from './ItemDetails.module.css'
 import Modal from '../Modal/Modal';
-import { LineChart, Line, CartesianGrid, XAxis, YAxis } from 'recharts';
+import { LineChart, Line, CartesianGrid, XAxis, YAxis, ResponsiveContainer } from 'recharts';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faPen, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
@@ -49,6 +49,7 @@ const ItemDetails: React.FC<ItemDetailsProps> = ({
   const [newDescription , setNewDescription] = useState(description);
   const [newIsOwned, setNewIsOwned] = useState(isOwned);
   const [showListings, setShowListings] = useState(false);
+  const [isTrackingPrice, setIsTrackingPrice] = useState(true);
 
   const history = useHistory();
 
@@ -82,118 +83,118 @@ const ItemDetails: React.FC<ItemDetailsProps> = ({
   }
 
   const renderLineChart = (
-    <LineChart width={600} height={300} data={data}>
-      <Line type="monotone" dataKey="price" stroke="#8884d8" />
-      <CartesianGrid stroke="#ccc" />
-      <XAxis dataKey="date" tickFormatter={formatXAxis} />
-      <YAxis type="number" />
-    </LineChart>
+    <ResponsiveContainer width='100%' height={300}>
+      <LineChart width={600} height={300} data={data}>
+        <Line type="monotone" dataKey="price" stroke="#8884d8" />
+        <CartesianGrid stroke="#ccc" />
+        <XAxis dataKey="date" tickFormatter={formatXAxis} />
+        <YAxis type="number" />
+      </LineChart>
+    </ResponsiveContainer>
   );
 
   return (
     <div className={styles.rootContainer}>
-      {/* <div> */}
-        {showModal &&
-          <Modal 
-            show={showModal}
-            onClose={() => setShowModal(false)}
-          >
-            <div className={styles.modalContainer}>
-              <div className={styles.modalHeaderContainer}>
-                <div
-                  className={styles.modalHeaderCloseButton}
-                  onClick={() => setShowModal(false)}
-                >
-                  <FontAwesomeIcon icon={ faTimes } />
-                </div>
-              </div>
-              <table>
-                <tbody>
-                  <tr>
-                    <td>Title</td>
-                    <td><input
-                      value={newTitle}
-                      onChange={e => setNewTitle(e.target.value)} />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Price</td>
-                    <td>
-                      <input
-                        value={newPrice}
-                        onChange={e => setNewPrice(Number(e.target.value))}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Image URL</td>
-                    <td>
-                      <input
-                        value={newImageURL}
-                        onChange={e => setNewImageURL(e.target.value)}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Description
-                    </td>
-                    <td>
-                      <input
-                        value={newDescription}
-                        onChange={e => setNewDescription(e.target.value)}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      I own this
-                    </td>
-                    <td>
-                      <label className={styles.switch}>
-                        <input
-                          checked={newIsOwned}
-                          onChange={() => setNewIsOwned(!newIsOwned)}
-                          type='checkbox'
-                        />
-                        <span className={styles.slider} />
-                      </label>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-              <div className={styles.modalButtonsContainer}>
-                <button
-                  className={styles.secondaryButton}
-                  id={styles.closeButton}
-                  onClick={() => setShowModal(false)}
-                >
-                  Close
-                </button>
-                <button
-                  className={styles.primaryButton}
-                  id={styles.saveButton}
-                  onClick={() => {
-                    updateItem(
-                      userId,
-                      itemId,
-                      newTitle,
-                      newPrice,
-                      newImageURL,
-                      newDescription,
-                      newIsOwned
-                    );
-                    onItemUpdate(itemId);
-                    setShowModal(false);
-                  }}
-                >
-                  Save Changes
-                </button>
+      {showModal &&
+        <Modal 
+          show={showModal}
+          onClose={() => setShowModal(false)}
+        >
+          <div className={styles.modalContainer}>
+            <div className={styles.modalHeaderContainer}>
+              <div
+                className={styles.modalHeaderCloseButton}
+                onClick={() => setShowModal(false)}
+              >
+                <FontAwesomeIcon icon={ faTimes } />
               </div>
             </div>
-          </Modal>
-        }
-      {/* </div> */}
+            <table>
+              <tbody>
+                <tr>
+                  <td>Title</td>
+                  <td><input
+                    value={newTitle}
+                    onChange={e => setNewTitle(e.target.value)} />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Price</td>
+                  <td>
+                    <input
+                      value={newPrice}
+                      onChange={e => setNewPrice(Number(e.target.value))}
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Image URL</td>
+                  <td>
+                    <input
+                      value={newImageURL}
+                      onChange={e => setNewImageURL(e.target.value)}
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Description
+                  </td>
+                  <td>
+                    <input
+                      value={newDescription}
+                      onChange={e => setNewDescription(e.target.value)}
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    I own this
+                  </td>
+                  <td>
+                    <label className={styles.switch}>
+                      <input
+                        checked={newIsOwned}
+                        onChange={() => setNewIsOwned(!newIsOwned)}
+                        type='checkbox'
+                      />
+                      <span className={styles.slider} />
+                    </label>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div className={styles.modalButtonsContainer}>
+              <button
+                className={styles.secondaryButton}
+                id={styles.closeButton}
+                onClick={() => setShowModal(false)}
+              >
+                Close
+              </button>
+              <button
+                className={styles.primaryButton}
+                id={styles.saveButton}
+                onClick={async() => {
+                  await updateItem(
+                    userId,
+                    itemId,
+                    newTitle,
+                    newPrice,
+                    newImageURL,
+                    newDescription,
+                    newIsOwned
+                  );
+                  await onItemUpdate(itemId);
+                  setShowModal(false);
+                }}
+              >
+                Save Changes
+              </button>
+            </div>
+          </div>
+        </Modal>
+      }
       <div className={styles.buttonsContainer}>
         <div 
           className={styles.buttonIcons}
@@ -216,47 +217,55 @@ const ItemDetails: React.FC<ItemDetailsProps> = ({
           <h1 className={styles.titleText}>{title}</h1>
         </div>
         <div className={styles.priceContainer}>
-          <span>{priceCurrency} {price}</span>
+          <span>{priceCurrency || '$'} {price}</span>
         </div>
+      </div>
+      <div>
+        <hr/>
       </div>
       <div className={styles.chartContainer}>
         <div className={styles.chartHeaderContainer}>
           <div>
-            <h2>Secondhand Market Price</h2>
+            <span className={styles.boldText}>
+              Secondhand Market Price Tracking
+            </span>
           </div>
-          <div>
+          <div className={styles.trackingPriceButtonContainer}>
             <label className={styles.switch}>
               <input
-                checked={newIsOwned}
-                onChange={() => setNewIsOwned(!newIsOwned)}
+                checked={isTrackingPrice}
+                onChange={() => setIsTrackingPrice(!isTrackingPrice)}
                 type='checkbox'
               />
               <span className={styles.slider} />
             </label>
           </div>
         </div>
-        <div>
-          {renderLineChart}
-        </div>
       </div>
-      <div className={styles.showListingButtonContainer}>
-        <button
-          className={styles.secondaryButton}
-          onClick={() => setShowListings(!showListings)}
-        >
-          Show eBay Listings
-        </button>
+      <div>
+        {isTrackingPrice && 
+        renderLineChart}
+        {isTrackingPrice &&
+          <div className={styles.showListingButtonContainer}>
+            <button
+              className={styles.secondaryButton}
+              onClick={() => setShowListings(!showListings)}
+            >
+              Show eBay Listings
+            </button>
+          </div>
+        }
       </div>
       { showListings &&
         <div>
           <table>
             <thead>
               <tr>
-                <th>title</th>
-                <th>date</th>
-                <th>price</th>
-                <th>currency</th>
-                <th>image</th>
+                <th>Title</th>
+                <th>Date</th>
+                <th>Price</th>
+                <th>Currency</th>
+                <th>Image</th>
               </tr>
             </thead>
             <tbody>
@@ -275,13 +284,17 @@ const ItemDetails: React.FC<ItemDetailsProps> = ({
         </div>
       }
       <div>
-        <h2>Danger Zone</h2>
+        <hr/>
+      </div>
+      <div className={styles.removeButtonAreaContainer}>
+        <span className={styles.boldText}>
+          Danger Zone
+        </span>
         <div
           onClick={handleDelete}
-          className={styles.buttonIcons}
+          className={styles.removeButtonContainer}
         >
           <button className={styles.secondaryButton}>Remove</button>
-          {/* <FontAwesomeIcon icon={ faTrashAlt } size={ '2x' }/> */}
         </div>
       </div>
     </div>

@@ -61,16 +61,18 @@ const ItemCard: React.FC<ItemCardProps> = ({ item, onCoinIconClick }) => {
             </span>
           }
         </div>
-        <div
-          onClick={() => onCoinIconClick(item.id, !item.isOwned)}
-          className={styles.coinIconContainer}
-        >
-          <FontAwesomeIcon
-            icon={ faCoins }
-            size={ '2x' }
-            color={item.isOwned ? 'black' : 'lightgrey'}
-          />
-        </div>
+        {item.id &&
+          <div
+            onClick={() => onCoinIconClick(item.id, !item.isOwned)}
+            className={styles.coinIconContainer}
+          >
+            <FontAwesomeIcon
+              icon={ faCoins }
+              size={ '2x' }
+              color={item.isOwned ? 'black' : 'lightgrey'}
+            />
+          </div>
+        }
       </div>
     </div>
   );
