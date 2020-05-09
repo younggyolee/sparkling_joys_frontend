@@ -39,7 +39,7 @@ const AppContainer: React.FC<AppContainerProps> = ({
       if (data.username) setUserName(data.username);
       console.log('userdata', data);
     })();
-  }, []);
+  }, [userId]);
 
   return (
     <>
