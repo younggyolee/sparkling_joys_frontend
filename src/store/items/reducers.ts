@@ -14,7 +14,7 @@ export const itemsReducer = (
 ) => {
   switch (action.type) {
     case SET_ALL_ITEMS:
-      return action.items;
+      return [...action.items];
     case SET_OWNED_ITEMS:
       const ownedItems = action.items.filter(item =>
         item.isOwned === true
