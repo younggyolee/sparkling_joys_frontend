@@ -38,7 +38,7 @@ function Signup() {
         </Link>
       </div>
       <div>
-        <h1> Sign up </h1>
+        <h3> Sign up </h3>
       </div>
       <div>
         Username: 

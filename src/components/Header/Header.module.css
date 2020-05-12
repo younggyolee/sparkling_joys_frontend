@@ -27,4 +27,5 @@
 
 .loginButtons:hover {
   filter: contrast(0.1);
+  cursor: pointer;
 }

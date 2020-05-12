@@ -49,7 +49,6 @@ export async function updateItem(
   description: string,
   isOwned: boolean
 ) {
-  console.log('updating isOwned to ', isOwned);
   let result;
   userId ?
   (result = await axios.put(

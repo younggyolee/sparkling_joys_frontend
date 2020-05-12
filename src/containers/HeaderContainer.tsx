@@ -14,12 +14,14 @@ axios.defaults.withCredentials = true;
 
 interface HeaderContainerProps {
   userId: string,
+  userName: string,
   setUserId: (userId: string) => void,
 };
 
 const HeaderContainer: React.FC<HeaderContainerProps> = ({
   userId,
-  setUserId,
+  userName,
+  setUserId
 }) => {
   const history = useHistory();
 
@@ -30,7 +32,11 @@ const HeaderContainer: React.FC<HeaderContainerProps> = ({
   }
 
   return (
-    <Header userId={userId} onLogout={handleLogout} />
+    <Header
+      userId={userId}
+      userName={userName}
+      onLogout={handleLogout} 
+    />
   );
 };
 
@@ -43,7 +49,8 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
 };
 
 const mapStateToProps = (state: RootState) => ({
-  userId: state.userId
+  userId: state.userId,
+  userName: state.userName
 });
 
 export default withRouter(
