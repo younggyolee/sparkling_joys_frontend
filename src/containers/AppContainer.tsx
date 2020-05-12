@@ -37,7 +37,6 @@ const AppContainer: React.FC<AppContainerProps> = ({
       const data = await getUser();
       if (data.userId) setUserId(data.userId);
       if (data.username) setUserName(data.username);
-      console.log('userdata', data);
     })();
   }, [userId]);
 
